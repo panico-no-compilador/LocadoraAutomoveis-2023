@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+	<ItemGroup>
+		<Folder Include="ModuloFuncionarios\" />
+		<Folder Include="ModuloGrupoAutomoveis\" />
+		<Folder Include="ModuloPlanosCobranca\" />
+		<Folder Include="ModuloAutomoveis\" />
+		<Folder Include="ModuloClientes\" />
+		<Folder Include="ModuloCondutores\" />
+		<Folder Include="ModuloTaxasServicos\" />
+		<Folder Include="ModuloAluguel\" />
+		<Folder Include="ModuloConfiguracaoPrecos\" />
+		<Folder Include="ModuloCuponsParceiros\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="FluentResults" Version="3.15.2" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+	  <PackageReference Include="Serilog.Expressions" Version="3.4.1" />
+	  <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+	  <PackageReference Include="Serilog.Sinks.Seq" Version="5.2.2" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\LocadoraAutomoveis.Aplicacao\LocadoraAutomoveis.Aplicacao.csproj" />
+	  <ProjectReference Include="..\LocadoraAutomoveis.Dominio\LocadoraAutomoveis.Dominio.csproj" />
+	  <ProjectReference Include="..\LocadoraAutomoveis.Infra.Orm\LocadoraAutomoveis.Infra.Orm.csproj" />
+	</ItemGroup>
+</Project>
