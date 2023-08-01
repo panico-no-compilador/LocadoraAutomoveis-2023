@@ -8,7 +8,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 	<ItemGroup>
-		<Folder Include="ModuloFuncionarios\" />
 		<Folder Include="ModuloGrupoAutomoveis\" />
 		<Folder Include="ModuloPlanosCobranca\" />
 		<Folder Include="ModuloAutomoveis\" />
