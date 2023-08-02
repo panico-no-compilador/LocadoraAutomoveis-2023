@@ -32,7 +32,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 
             return colunas;
         }
-        public int ObtemIdSelecionado()
+        public Guid ObtemIdSelecionado()
         {
             return tabelaGrupoAuto.SelecionarId();
         }

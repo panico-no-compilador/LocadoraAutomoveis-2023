@@ -181,6 +181,7 @@
             btnEditar.Padding = new Padding(5);
             btnEditar.Size = new Size(51, 29);
             btnEditar.Text = "Editar";
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnExcluir
             // 
@@ -293,7 +294,7 @@
             panelRegistros.Size = new Size(686, 343);
             panelRegistros.TabIndex = 3;
             // 
-            // TelaPrincipal
+            // TelaPrincipalForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -304,7 +305,7 @@
             Controls.Add(menu);
             MainMenuStrip = menu;
             MinimumSize = new Size(702, 458);
-            Name = "TelaPrincipal";
+            Name = "TelaPrincipalForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Locadora de Automóveis 1.0";

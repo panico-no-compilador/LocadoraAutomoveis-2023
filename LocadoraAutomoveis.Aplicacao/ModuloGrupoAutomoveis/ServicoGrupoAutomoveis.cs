@@ -71,5 +71,31 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis
                 return Result.Fail(msgErro); //cenário 3
             }
         }
+        public Result Editar(GrupoAutomoveis grupoAutomoveis)
+        {
+            Log.Debug("Tentando editar Grupo de Automoveis...{@d}", grupoAutomoveis);
+
+            List<string> erros = ValidarGrupoAutomoveis(grupoAutomoveis);
+
+            if (erros.Count() > 0)
+                return Result.Fail(erros);
+
+            try
+            {
+                repositorioGrupoAutomoveis.Editar(grupoAutomoveis);
+
+                Log.Debug("Grupo de Automoveis {GrupoAutomoveisId} editada com sucesso", grupoAutomoveis.Id);
+
+                return Result.Ok();
+            }
+            catch (Exception exc)
+            {
+                string msgErro = "Falha ao tentar editar Grupo de Automoveis.";
+
+                Log.Error(exc, msgErro + "{@d}", grupoAutomoveis);
+
+                return Result.Fail(msgErro);
+            }
+        }
     }
 }

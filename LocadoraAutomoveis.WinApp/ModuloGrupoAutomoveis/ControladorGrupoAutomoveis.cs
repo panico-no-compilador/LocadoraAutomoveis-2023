@@ -35,7 +35,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 
             if (resultado == DialogResult.OK)
             {
-                CarregarDisciplinas();
+                CarregarGrupoAutomoveis();
             }
         }
 
@@ -49,12 +49,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
             if (tabelaGrupoAutomoveis == null)
                 tabelaGrupoAutomoveis = new TabelaGrupoAutomoveisControl();
 
-            CarregarDisciplinas();
+            CarregarGrupoAutomoveis();
 
             return tabelaGrupoAutomoveis;
         }
 
-        private void CarregarDisciplinas()
+        private void CarregarGrupoAutomoveis()
         {
             List<GrupoAutomoveis> disciplinas = repositorioGrupoAutomoveis.SelecionarTodos();
 
@@ -62,7 +62,33 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 
             mensagemRodape = string.Format("Visualizando {0} grupo de automoveis{1}", disciplinas.Count, disciplinas.Count == 1 ? "" : "s");
 
-            TelaPrincipal.Instancia.AtualizarRodape(mensagemRodape);
+            TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
+        }
+        public override void Editar()
+        {
+            Guid id = tabelaGrupoAutomoveis.ObtemIdSelecionado();
+
+            GrupoAutomoveis grupAutoSelecionado = repositorioGrupoAutomoveis.SelecionarPorId(id);
+
+            if (grupAutoSelecionado == null)
+            {
+                MessageBox.Show("Selecione uma disciplina primeiro",
+                "Edição de Compromissos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            TelaGrupoAutomoveisForm tela = new TelaGrupoAutomoveisForm();
+
+            tela.onGravarRegistro += servicoGrupoAutomoveis.Editar;
+
+            tela.ConfigurarGrupoAutomoveis(grupAutoSelecionado);
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                CarregarGrupoAutomoveis();
+            }
         }
     }
 }
