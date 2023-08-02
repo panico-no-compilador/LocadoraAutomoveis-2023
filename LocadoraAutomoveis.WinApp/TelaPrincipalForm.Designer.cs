@@ -1,6 +1,6 @@
 ﻿namespace LocadoraAutomoveis.WinApp
 {
-    partial class TelaPrincipal
+    partial class TelaPrincipalForm
     {
         /// <summary>
         ///  Required designer variable.

@@ -9,13 +9,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace LocadoraAutomoveis.WinApp
 {
-    public partial class TelaPrincipal : Form
+    public partial class TelaPrincipalForm : Form
     {
         private Dictionary<string, ControladorBase> controladores;
 
         private ControladorBase controlador;
 
-        public TelaPrincipal()
+        public TelaPrincipalForm()
         {
             InitializeComponent();
             Instancia = this;
@@ -26,7 +26,7 @@ namespace LocadoraAutomoveis.WinApp
 
             ConfigurarControladores();
         }
-        public static TelaPrincipal Instancia
+        public static TelaPrincipalForm Instancia
         {
             get;
             private set;
