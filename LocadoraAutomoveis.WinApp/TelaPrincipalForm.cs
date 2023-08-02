@@ -122,5 +122,10 @@ namespace LocadoraAutomoveis.WinApp
 
             panelRegistros.Controls.Add(listagemControl);
         }
+
+        private void btnInserir_Click(object sender, EventArgs e)
+        {
+            controlador.Inserir();
+        }
     }
 }

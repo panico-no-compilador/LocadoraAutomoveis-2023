@@ -12,17 +12,17 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis
             this.validadorGrupoAutomoveis = validadorGrupoAutomoveis;
         }
 
-        private List<string> ValidarGrupoAutomoveis(GrupoAutomoveis disciplina)
+        private List<string> ValidarGrupoAutomoveis(GrupoAutomoveis grupoAutomoveis)
         {
-            var resultadoValidacao = validadorGrupoAutomoveis.Validate(disciplina);
+            var resultadoValidacao = validadorGrupoAutomoveis.Validate(grupoAutomoveis);
 
             List<string> erros = new List<string>();
 
             if (resultadoValidacao != null)
                 erros.AddRange(resultadoValidacao.Errors.Select(x => x.ErrorMessage));
 
-            if (NomeDuplicado(disciplina))
-                erros.Add($"Este nome '{disciplina.Tipo}' já está sendo utilizado");
+            if (NomeDuplicado(grupoAutomoveis))
+                erros.Add($"Este tipo '{grupoAutomoveis.Tipo}' já está sendo utilizado");
 
             foreach (string erro in erros)
             {
@@ -44,6 +44,32 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis
             }
 
             return false;
+        }
+        public Result Inserir(GrupoAutomoveis grupoAutomoveis)
+        {
+            Log.Debug("Tentando inserir grupo de automóveis...{@d}", grupoAutomoveis);
+
+            List<string> erros = ValidarGrupoAutomoveis(grupoAutomoveis);
+
+            if (erros.Count() > 0)
+                return Result.Fail(erros); //cenário 2
+
+            try
+            {
+                repositorioGrupoAutomoveis.Inserir(grupoAutomoveis);
+
+                Log.Debug("Grupo de Automóveis {GrupoAutomoveisId} inserida com sucesso", grupoAutomoveis.Id);
+
+                return Result.Ok(); //cenário 1
+            }
+            catch (Exception exc)
+            {
+                string msgErro = "Falha ao tentar inserir Grupo de Automóveis.";
+
+                Log.Error(exc, msgErro + "{@d}", grupoAutomoveis);
+
+                return Result.Fail(msgErro); //cenário 3
+            }
         }
     }
 }

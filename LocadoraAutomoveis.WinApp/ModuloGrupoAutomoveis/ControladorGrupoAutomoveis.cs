@@ -25,7 +25,18 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 
         public override void Inserir()
         {
-            throw new NotImplementedException();
+            TelaGrupoAutomoveisForm tela = new TelaGrupoAutomoveisForm();
+
+            tela.onGravarRegistro += servicoGrupoAutomoveis.Inserir;
+
+            tela.ConfigurarGrupoAutomoveis(new GrupoAutomoveis());
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                CarregarDisciplinas();
+            }
         }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
@@ -49,7 +60,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 
             tabelaGrupoAutomoveis.AtualizarRegistros(disciplinas);
 
-            mensagemRodape = string.Format("Visualizando {0} disciplina{1}", disciplinas.Count, disciplinas.Count == 1 ? "" : "s");
+            mensagemRodape = string.Format("Visualizando {0} grupo de automoveis{1}", disciplinas.Count, disciplinas.Count == 1 ? "" : "s");
 
             TelaPrincipal.Instancia.AtualizarRodape(mensagemRodape);
         }
