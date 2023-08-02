@@ -111,7 +111,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCuponsParceiros
             tabelaParceiro.AtualizarRegistros(parceiros);
 
             mensagemRodape = string.Format("Visualizando {0} parceiro{1}", parceiros.Count, parceiros.Count == 1 ? "" : "s");
-            TelaPrincipal.Instancia.AtualizarRodape(mensagemRodape);
+            TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
         }
     }
 }

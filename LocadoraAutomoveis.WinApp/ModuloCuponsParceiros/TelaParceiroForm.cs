@@ -46,7 +46,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCuponsParceiros
             {
                 string erro = resultado.Errors[0].Message;
 
-                TelaPrincipal.Instancia.AtualizarRodape(erro);
+                TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 
                 DialogResult = DialogResult.None;
             }
@@ -62,7 +62,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCuponsParceiros
             {
                 string erro = resultado.Errors[0].Message;
 
-                TelaPrincipal.Instancia.AtualizarRodape(erro);
+                TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 
                 DialogResult = DialogResult.None;
             }
