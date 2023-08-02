@@ -170,6 +170,7 @@
             btnInserir.Padding = new Padding(5);
             btnInserir.Size = new Size(72, 29);
             btnInserir.Text = "Adicionar";
+            btnInserir.Click += btnInserir_Click;
             // 
             // btnEditar
             // 

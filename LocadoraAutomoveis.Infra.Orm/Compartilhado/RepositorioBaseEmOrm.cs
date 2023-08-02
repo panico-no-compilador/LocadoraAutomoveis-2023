@@ -35,7 +35,9 @@ namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
 
         public void Inserir(T novoRegistro)
         {
-            throw new NotImplementedException();
+            registros.Add(novoRegistro);
+
+            dbContext.SaveChanges();
         }
 
         public T SelecionarPorId(int id)
