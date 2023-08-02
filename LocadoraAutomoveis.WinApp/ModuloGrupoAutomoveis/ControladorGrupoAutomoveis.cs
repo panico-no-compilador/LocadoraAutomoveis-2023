@@ -91,5 +91,31 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 
             TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
         }
+        public override void Editar()
+        {
+            Guid id = tabelaGrupoAutomoveis.ObtemIdSelecionado();
+
+            GrupoAutomoveis grupAutoSelecionado = repositorioGrupoAutomoveis.SelecionarPorId(id);
+
+            if (grupAutoSelecionado == null)
+            {
+                MessageBox.Show("Selecione uma disciplina primeiro",
+                "Edição de Compromissos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            TelaGrupoAutomoveisForm tela = new TelaGrupoAutomoveisForm();
+
+            tela.onGravarRegistro += servicoGrupoAutomoveis.Editar;
+
+            tela.ConfigurarGrupoAutomoveis(grupAutoSelecionado);
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                CarregarGrupoAutomoveis();
+            }
+        }
     }
 }

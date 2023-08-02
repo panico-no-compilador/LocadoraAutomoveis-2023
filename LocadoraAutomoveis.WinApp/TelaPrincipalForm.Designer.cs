@@ -181,6 +181,7 @@
             btnEditar.Padding = new Padding(5);
             btnEditar.Size = new Size(51, 29);
             btnEditar.Text = "Editar";
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnExcluir
             // 

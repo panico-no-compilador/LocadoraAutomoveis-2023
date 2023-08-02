@@ -20,7 +20,9 @@ namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
         }
         public void Editar(T registro)
         {
-            throw new NotImplementedException();
+            registros.Update(registro);
+
+            dbContext.SaveChanges();
         }
 
         public void Excluir(T registro)
