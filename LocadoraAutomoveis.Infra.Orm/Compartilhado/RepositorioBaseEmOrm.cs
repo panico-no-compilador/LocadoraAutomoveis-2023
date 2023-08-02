@@ -13,6 +13,11 @@ namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
     {
         protected readonly LocadoraAutomoveisDbContext dbContext;
         protected DbSet<T> registros;
+        public RepositorioBaseEmOrm(LocadoraAutomoveisDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+            registros = dbContext.Set<T>();
+        }
         public void Editar(T registro)
         {
             throw new NotImplementedException();

@@ -1,4 +1,11 @@
+using LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Infra.Orm.Compartilhado;
+using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -10,14 +17,14 @@ namespace LocadoraAutomoveis.WinApp
 
         public TelaPrincipal()
         {
-            Instancia = this;
-            //labelRodape.Text = string.Empty;
-            //labelTipoCadastro.Text = string.Empty;
-            //controladores = new Dictionary<string, ControladorBase>();
-
             InitializeComponent();
+            Instancia = this;
+            labelRodape.Text = string.Empty;
+            labelTipoCadastro.Text = string.Empty;
+            controladores = new Dictionary<string, ControladorBase>();
 
-            //ConfigurarControladores();
+
+            ConfigurarControladores();
         }
         public static TelaPrincipal Instancia
         {
@@ -35,7 +42,22 @@ namespace LocadoraAutomoveis.WinApp
         private void ConfigurarControladores()
         {
             //instancia do servico, repositorio, validador || controladores.Add()
-            throw new NotImplementedException();
+            var configuracao = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json")
+               .Build();
+            var connectionString = configuracao.GetConnectionString("SqlServer");
+            var optionsBuilder = new DbContextOptionsBuilder<LocadoraAutomoveisDbContext>();
+            optionsBuilder.UseSqlServer(connectionString);
+            var dbContext = new LocadoraAutomoveisDbContext(optionsBuilder.Options);
+
+            IRepositorioGrupoAutomoveis repositorioGrupoAutomoveis = new RepositorioGrupoAutomoveisOrm(dbContext);
+
+            ValidadorGrupoAutomoveis validationRules = new ValidadorGrupoAutomoveis();
+
+            ServicoGrupoAutomoveis servicoGrupoAutomoveis = new ServicoGrupoAutomoveis(repositorioGrupoAutomoveis, validationRules);
+
+            controladores.Add("ControladorGrupoAutomoveis", new ControladorGrupoAutomoveis(repositorioGrupoAutomoveis, servicoGrupoAutomoveis));
         }
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
         {
@@ -63,7 +85,7 @@ namespace LocadoraAutomoveis.WinApp
 
         private void ConfigurarTelaPrincipal(ControladorBase controladorBase)
         {
-            this.controlador = controlador;
+            this.controlador = controladorBase;
 
             ConfigurarToolbox();
 

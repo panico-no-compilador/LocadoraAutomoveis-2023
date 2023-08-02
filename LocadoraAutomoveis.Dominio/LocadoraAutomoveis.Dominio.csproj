@@ -7,7 +7,6 @@
   </PropertyGroup>
 	<ItemGroup>
 		<Folder Include="ModuloFuncionarios\" />
-		<Folder Include="ModuloGrupoAutomoveis\" />
 		<Folder Include="ModuloPlanosCobranca\" />
 		<Folder Include="ModuloAutomoveis\" />
 		<Folder Include="ModuloClientes\" />
@@ -19,5 +18,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="FluentValidation" Version="11.6.0" />
+	  <PackageReference Include="SequentialGuid" Version="4.0.4" />
 	</ItemGroup>
 </Project>
