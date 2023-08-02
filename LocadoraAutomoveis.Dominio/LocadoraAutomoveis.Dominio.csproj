@@ -15,9 +15,9 @@
 		<Folder Include="ModuloTaxasServicos\" />
 		<Folder Include="ModuloAluguel\" />
 		<Folder Include="ModuloConfiguracaoPrecos\" />
-		<Folder Include="ModuloCuponsParceiros\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="FluentValidation" Version="11.6.0" />
+	  <PackageReference Include="SequentialGuid" Version="4.0.4" />
 	</ItemGroup>
 </Project>

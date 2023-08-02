@@ -16,7 +16,6 @@
     <Folder Include="ModuloTaxasServicos\" />
     <Folder Include="ModuloAluguel\" />
     <Folder Include="ModuloConfiguracaoPrecos\" />
-    <Folder Include="ModuloCuponsParceiros\" />
   </ItemGroup>
 
   <ItemGroup>

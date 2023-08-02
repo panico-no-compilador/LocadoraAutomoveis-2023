@@ -40,6 +40,7 @@
             grupoDeAutoToolStripMenuItem = new ToolStripMenuItem();
             planosECobrançasToolStripMenuItem = new ToolStripMenuItem();
             taxasEServiçosToolStripMenuItem = new ToolStripMenuItem();
+            cadastrosToolStripMenuItem1 = new ToolStripMenuItem();
             toolbox = new ToolStrip();
             btnInserir = new ToolStripButton();
             btnEditar = new ToolStripButton();
@@ -74,7 +75,7 @@
             // 
             // cadastrosToolStripMenuItem
             // 
-            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { disciplinaMenuItem, materiasMenuItem, questoesMenuItem, testesMenuItem, configPreçosToolStripMenuItem, cuponsParceirosToolStripMenuItem, funcionarosToolStripMenuItem, grupoDeAutoToolStripMenuItem, planosECobrançasToolStripMenuItem, taxasEServiçosToolStripMenuItem });
+            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { disciplinaMenuItem, materiasMenuItem, questoesMenuItem, testesMenuItem, configPreçosToolStripMenuItem, cuponsParceirosToolStripMenuItem, funcionarosToolStripMenuItem, grupoDeAutoToolStripMenuItem, planosECobrançasToolStripMenuItem, taxasEServiçosToolStripMenuItem, cadastrosToolStripMenuItem1 });
             cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             cadastrosToolStripMenuItem.Size = new Size(71, 20);
             cadastrosToolStripMenuItem.Text = "Cadastros";
@@ -120,6 +121,7 @@
             cuponsParceirosToolStripMenuItem.ShortcutKeys = Keys.F6;
             cuponsParceirosToolStripMenuItem.Size = new Size(203, 22);
             cuponsParceirosToolStripMenuItem.Text = "Cupons Parceiros";
+            cuponsParceirosToolStripMenuItem.Click += cuponsParceirosToolStripMenuItem_Click;
             // 
             // funcionarosToolStripMenuItem
             // 
@@ -150,6 +152,12 @@
             taxasEServiçosToolStripMenuItem.Size = new Size(203, 22);
             taxasEServiçosToolStripMenuItem.Text = "Taxas e Serviços";
             // 
+            // cadastrosToolStripMenuItem1
+            // 
+            cadastrosToolStripMenuItem1.Name = "cadastrosToolStripMenuItem1";
+            cadastrosToolStripMenuItem1.Size = new Size(203, 22);
+            cadastrosToolStripMenuItem1.Text = "Cadastros";
+            // 
             // toolbox
             // 
             toolbox.Enabled = false;
@@ -170,6 +178,7 @@
             btnInserir.Padding = new Padding(5);
             btnInserir.Size = new Size(72, 29);
             btnInserir.Text = "Adicionar";
+            btnInserir.Click += btnInserir_Click;
             // 
             // btnEditar
             // 
@@ -180,6 +189,7 @@
             btnEditar.Padding = new Padding(5);
             btnEditar.Size = new Size(51, 29);
             btnEditar.Text = "Editar";
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnExcluir
             // 
@@ -190,6 +200,7 @@
             btnExcluir.Padding = new Padding(5);
             btnExcluir.Size = new Size(56, 29);
             btnExcluir.Text = "Excluir";
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // toolStripSeparator2
             // 
@@ -350,5 +361,6 @@
         private ToolStripMenuItem taxasEServiçosToolStripMenuItem;
         private ToolStripButton btnVizualizar;
         private ToolStripButton btnCadastrarCupom;
+        private ToolStripMenuItem cadastrosToolStripMenuItem1;
     }
 }

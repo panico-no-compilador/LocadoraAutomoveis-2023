@@ -13,27 +13,40 @@ namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
     {
         protected readonly LocadoraAutomoveisDbContext dbContext;
         protected DbSet<T> registros;
+
+        public RepositorioBaseEmOrm(LocadoraAutomoveisDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+            registros = dbContext.Set<T>();
+        }
+
         public void Editar(T registro)
         {
-            throw new NotImplementedException();
+            registros.Update(registro);
+
+            dbContext.SaveChanges();
         }
 
         public void Excluir(T registro)
         {
-            throw new NotImplementedException();
+            registros.Remove(registro);
+
+            dbContext.SaveChanges();
         }
 
         public bool Existe(T registro)
         {
-            throw new NotImplementedException();
+            return registros.Contains(registro);
         }
 
         public void Inserir(T novoRegistro)
         {
-            throw new NotImplementedException();
+            registros.Add(novoRegistro);
+            dbContext.SaveChanges();
         }
 
-        public T SelecionarPorId(int id)
+
+        public T SelecionarPorId(Guid id)
         {
             return registros.Find(id);
         }
@@ -41,7 +54,6 @@ namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
         public List<T> SelecionarTodos()
         {
             return registros.ToList();
-
         }
     }
 }
