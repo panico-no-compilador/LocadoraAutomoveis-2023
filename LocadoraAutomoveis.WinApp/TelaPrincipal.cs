@@ -1,4 +1,13 @@
+using LocadoraAutomoveis.Dominio.Compartilhado;
+using LocadoraAutomoveis.Dominio.ModuloCuponsParceiros;
+using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.WinApp.Compartilhado;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using LocadoraAutomoveis.Infra.Orm.Compartilhado;
+using LocadoraAutomoveis.Infra.Orm.ModuloCuponsParceiros;
+using LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros;
+using LocadoraAutomoveis.WinApp.ModuloCuponsParceiros;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -10,14 +19,12 @@ namespace LocadoraAutomoveis.WinApp
 
         public TelaPrincipal()
         {
-            Instancia = this;
-            //labelRodape.Text = string.Empty;
-            //labelTipoCadastro.Text = string.Empty;
-            //controladores = new Dictionary<string, ControladorBase>();
-
             InitializeComponent();
-
-            //ConfigurarControladores();
+            Instancia = this;
+            labelRodape.Text = string.Empty;
+            labelTipoCadastro.Text = string.Empty;
+            controladores = new Dictionary<string, ControladorBase>();
+            ConfigurarControladores();
         }
         public static TelaPrincipal Instancia
         {
@@ -35,7 +42,29 @@ namespace LocadoraAutomoveis.WinApp
         private void ConfigurarControladores()
         {
             //instancia do servico, repositorio, validador || controladores.Add()
-            throw new NotImplementedException();
+            var configuracao = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json")
+               .Build();
+
+            var connectionString = configuracao.GetConnectionString("SqlServer");
+
+            var optionsBuilder = new DbContextOptionsBuilder<LocadoraAutomoveisDbContext>();
+
+            optionsBuilder.UseSqlServer(connectionString);
+
+            var dbContext = new LocadoraAutomoveisDbContext(optionsBuilder.Options);
+            //var migracoesPendentes = dbContext.Database.GetPendingMigrations();
+
+            //if (migracoesPendentes.Count() > 0)
+            //{
+            //    dbContext.Database.Migrate();
+            //}
+
+            IRepositorioParceiro repositorioParceiro = new RepositorioParceiroEmOrm(dbContext);
+            ValidadorParceiro validadorParceiro = new ValidadorParceiro();
+            ServicoParceiro servicoParceiro = new ServicoParceiro(repositorioParceiro, validadorParceiro);
+            controladores.Add("ControladorParceiro", new ControladorParceiro(repositorioParceiro, servicoParceiro));
         }
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
         {
@@ -63,7 +92,7 @@ namespace LocadoraAutomoveis.WinApp
 
         private void ConfigurarTelaPrincipal(ControladorBase controladorBase)
         {
-            this.controlador = controlador;
+            this.controlador = controladorBase;
 
             ConfigurarToolbox();
 
@@ -99,6 +128,26 @@ namespace LocadoraAutomoveis.WinApp
             listagemControl.Dock = DockStyle.Fill;
 
             panelRegistros.Controls.Add(listagemControl);
+        }
+
+        private void cuponsParceirosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(controladores["ControladorParceiro"]);
+        }
+
+        private void btnInserir_Click(object sender, EventArgs e)
+        {
+            controlador.Inserir();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            controlador.Editar();
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            controlador.Excluir();
         }
     }
 }

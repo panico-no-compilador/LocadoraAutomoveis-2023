@@ -15,7 +15,6 @@
 		<Folder Include="ModuloTaxasServicos\" />
 		<Folder Include="ModuloAluguel\" />
 		<Folder Include="ModuloConfiguracaoPrecos\" />
-		<Folder Include="ModuloCuponsParceiros\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
