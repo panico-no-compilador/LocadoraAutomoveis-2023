@@ -25,12 +25,14 @@ namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
 
         public void Excluir(T registro)
         {
-            throw new NotImplementedException();
+            registros.Remove(registro);
+
+            dbContext.SaveChanges();
         }
 
         public bool Existe(T registro)
         {
-            throw new NotImplementedException();
+            return registros.Contains(registro);
         }
 
         public void Inserir(T novoRegistro)
@@ -40,7 +42,7 @@ namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
             dbContext.SaveChanges();
         }
 
-        public T SelecionarPorId(int id)
+        public T SelecionarPorId(Guid id)
         {
             return registros.Find(id);
         }

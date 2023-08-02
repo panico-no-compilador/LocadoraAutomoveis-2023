@@ -32,18 +32,18 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 
             return colunas;
         }
-        public int ObtemIdSelecionado()
+        public Guid ObtemIdSelecionado()
         {
             return tabelaGrupoAuto.SelecionarId();
         }
 
-        public void AtualizarRegistros(List<GrupoAutomoveis> disciplinas)
+        public void AtualizarRegistros(List<GrupoAutomoveis> GrupoAutomoveiss)
         {
             tabelaGrupoAuto.Rows.Clear();
 
-            foreach (GrupoAutomoveis disciplina in disciplinas)
+            foreach (GrupoAutomoveis GrupoAutomoveis in GrupoAutomoveiss)
             {
-                tabelaGrupoAuto.Rows.Add(disciplina.Id, disciplina.Tipo);
+                tabelaGrupoAuto.Rows.Add(GrupoAutomoveis.Id, GrupoAutomoveis.Tipo);
             }
         }
     }

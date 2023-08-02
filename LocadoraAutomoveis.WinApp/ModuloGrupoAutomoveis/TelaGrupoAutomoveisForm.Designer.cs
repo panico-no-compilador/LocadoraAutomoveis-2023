@@ -32,8 +32,6 @@
             txtTipo = new TextBox();
             btnGravar = new Button();
             btnCancelar = new Button();
-            txtId = new TextBox();
-            label1 = new Label();
             SuspendLayout();
             // 
             // label2
@@ -73,30 +71,11 @@
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
-            // txtId
-            // 
-            txtId.Enabled = false;
-            txtId.Location = new Point(85, 26);
-            txtId.Name = "txtId";
-            txtId.Size = new Size(60, 23);
-            txtId.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(59, 29);
-            label1.Name = "label1";
-            label1.Size = new Size(20, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Id:";
-            // 
             // TelaGrupoAutomoveisForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(356, 220);
-            Controls.Add(txtId);
-            Controls.Add(label1);
             Controls.Add(btnCancelar);
             Controls.Add(btnGravar);
             Controls.Add(txtTipo);
@@ -112,7 +91,5 @@
         private System.Windows.Forms.TextBox txtTipo;
         private System.Windows.Forms.Button btnGravar;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.TextBox txtId;
-        private System.Windows.Forms.Label label1;
     }
 }

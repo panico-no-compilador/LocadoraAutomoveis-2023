@@ -17,12 +17,10 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
         internal void ConfigurarGrupoAutomoveis(GrupoAutomoveis grupoAutomoveis)
         {
             this.grupoAutomoveis = grupoAutomoveis;
-            txtId.Text = grupoAutomoveis.Id.ToString();
             txtTipo.Text = grupoAutomoveis.Tipo;
         }
         public GrupoAutomoveis ObterGrupoAutomoveis()
         {
-            grupoAutomoveis.Id = Guid.NewGuid();
             grupoAutomoveis.Tipo = txtTipo.Text;
             return grupoAutomoveis;
         }
@@ -36,7 +34,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
             {
                 string erro = resultado.Errors[0].Message;
 
-                TelaPrincipal.Instancia.AtualizarRodape(erro);
+                TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 
                 DialogResult = DialogResult.None;
             }

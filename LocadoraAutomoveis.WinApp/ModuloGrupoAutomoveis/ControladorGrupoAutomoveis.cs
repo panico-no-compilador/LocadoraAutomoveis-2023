@@ -20,7 +20,34 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 
         public override void Excluir()
         {
-            throw new NotImplementedException();
+            Guid id = tabelaGrupoAutomoveis.ObtemIdSelecionado();
+
+            GrupoAutomoveis GrupoAutomoveisSelecionada = repositorioGrupoAutomoveis.SelecionarPorId(id);
+
+            if (GrupoAutomoveisSelecionada == null)
+            {
+                MessageBox.Show("Selecione um grupo de automoveis primeiro",
+                "Exclusão de grupo de automoveis", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            DialogResult opcaoEscolhida = MessageBox.Show($"Deseja realmente excluir o grupo de automoveis {GrupoAutomoveisSelecionada.Tipo}?",
+               "Exclusão de grupo de automoveis", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (opcaoEscolhida == DialogResult.OK)
+            {
+                Result resultado = servicoGrupoAutomoveis.Excluir(GrupoAutomoveisSelecionada);
+
+                if (resultado.IsFailed)
+                {
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de grupo de automoveis",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
+                CarregarGrupoAutomoveis();
+            }
         }
 
         public override void Inserir()
@@ -35,7 +62,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 
             if (resultado == DialogResult.OK)
             {
-                CarregarDisciplinas();
+                CarregarGrupoAutomoveis();
             }
         }
 
@@ -49,20 +76,20 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
             if (tabelaGrupoAutomoveis == null)
                 tabelaGrupoAutomoveis = new TabelaGrupoAutomoveisControl();
 
-            CarregarDisciplinas();
+            CarregarGrupoAutomoveis();
 
             return tabelaGrupoAutomoveis;
         }
 
-        private void CarregarDisciplinas()
+        private void CarregarGrupoAutomoveis()
         {
-            List<GrupoAutomoveis> disciplinas = repositorioGrupoAutomoveis.SelecionarTodos();
+            List<GrupoAutomoveis> GrupoAutomoveiss = repositorioGrupoAutomoveis.SelecionarTodos();
 
-            tabelaGrupoAutomoveis.AtualizarRegistros(disciplinas);
+            tabelaGrupoAutomoveis.AtualizarRegistros(GrupoAutomoveiss);
 
-            mensagemRodape = string.Format("Visualizando {0} grupo de automoveis{1}", disciplinas.Count, disciplinas.Count == 1 ? "" : "s");
+            mensagemRodape = string.Format("Visualizando {0} grupo de automoveis{1}", GrupoAutomoveiss.Count, GrupoAutomoveiss.Count == 1 ? "" : "s");
 
-            TelaPrincipal.Instancia.AtualizarRodape(mensagemRodape);
+            TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
         }
     }
 }
