@@ -58,6 +58,7 @@
             statusStrip1 = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
             panelRegistros = new Panel();
+            cuponsToolStripMenuItem = new ToolStripMenuItem();
             menu.SuspendLayout();
             toolbox.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -75,7 +76,7 @@
             // 
             // cadastrosToolStripMenuItem
             // 
-            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { disciplinaMenuItem, materiasMenuItem, questoesMenuItem, testesMenuItem, configPreçosToolStripMenuItem, cuponsParceirosToolStripMenuItem, funcionarosToolStripMenuItem, grupoDeAutoToolStripMenuItem, planosECobrançasToolStripMenuItem, taxasEServiçosToolStripMenuItem, cadastrosToolStripMenuItem1 });
+            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { disciplinaMenuItem, materiasMenuItem, questoesMenuItem, testesMenuItem, configPreçosToolStripMenuItem, cuponsParceirosToolStripMenuItem, cuponsToolStripMenuItem, funcionarosToolStripMenuItem, grupoDeAutoToolStripMenuItem, planosECobrançasToolStripMenuItem, taxasEServiçosToolStripMenuItem, cadastrosToolStripMenuItem1 });
             cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             cadastrosToolStripMenuItem.Size = new Size(71, 20);
             cadastrosToolStripMenuItem.Text = "Cadastros";
@@ -120,20 +121,20 @@
             cuponsParceirosToolStripMenuItem.Name = "cuponsParceirosToolStripMenuItem";
             cuponsParceirosToolStripMenuItem.ShortcutKeys = Keys.F6;
             cuponsParceirosToolStripMenuItem.Size = new Size(203, 22);
-            cuponsParceirosToolStripMenuItem.Text = "Cupons Parceiros";
+            cuponsParceirosToolStripMenuItem.Text = "Parceiros";
             cuponsParceirosToolStripMenuItem.Click += cuponsParceirosToolStripMenuItem_Click;
             // 
             // funcionarosToolStripMenuItem
             // 
             funcionarosToolStripMenuItem.Name = "funcionarosToolStripMenuItem";
-            funcionarosToolStripMenuItem.ShortcutKeys = Keys.F7;
+            funcionarosToolStripMenuItem.ShortcutKeys = Keys.F8;
             funcionarosToolStripMenuItem.Size = new Size(203, 22);
             funcionarosToolStripMenuItem.Text = "Funcionarios";
             // 
             // grupoDeAutoToolStripMenuItem
             // 
             grupoDeAutoToolStripMenuItem.Name = "grupoDeAutoToolStripMenuItem";
-            grupoDeAutoToolStripMenuItem.ShortcutKeys = Keys.F8;
+            grupoDeAutoToolStripMenuItem.ShortcutKeys = Keys.F9;
             grupoDeAutoToolStripMenuItem.Size = new Size(203, 22);
             grupoDeAutoToolStripMenuItem.Text = "Grupo de Auto";
             grupoDeAutoToolStripMenuItem.Click += grupoDeAutoToolStripMenuItem_Click;
@@ -141,14 +142,14 @@
             // planosECobrançasToolStripMenuItem
             // 
             planosECobrançasToolStripMenuItem.Name = "planosECobrançasToolStripMenuItem";
-            planosECobrançasToolStripMenuItem.ShortcutKeys = Keys.F9;
+            planosECobrançasToolStripMenuItem.ShortcutKeys = Keys.F10;
             planosECobrançasToolStripMenuItem.Size = new Size(203, 22);
             planosECobrançasToolStripMenuItem.Text = "Planos e Cobranças";
             // 
             // taxasEServiçosToolStripMenuItem
             // 
             taxasEServiçosToolStripMenuItem.Name = "taxasEServiçosToolStripMenuItem";
-            taxasEServiçosToolStripMenuItem.ShortcutKeys = Keys.F10;
+            taxasEServiçosToolStripMenuItem.ShortcutKeys = Keys.F11;
             taxasEServiçosToolStripMenuItem.Size = new Size(203, 22);
             taxasEServiçosToolStripMenuItem.Text = "Taxas e Serviços";
             // 
@@ -303,7 +304,15 @@
             panelRegistros.Size = new Size(686, 343);
             panelRegistros.TabIndex = 3;
             // 
-            // TelaPrincipal
+            // cuponsToolStripMenuItem
+            // 
+            cuponsToolStripMenuItem.Name = "cuponsToolStripMenuItem";
+            cuponsToolStripMenuItem.ShortcutKeys = Keys.F7;
+            cuponsToolStripMenuItem.Size = new Size(203, 22);
+            cuponsToolStripMenuItem.Text = "Cupons";
+            cuponsToolStripMenuItem.Click += cuponsToolStripMenuItem_Click;
+            // 
+            // TelaPrincipalForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -314,7 +323,7 @@
             Controls.Add(menu);
             MainMenuStrip = menu;
             MinimumSize = new Size(702, 458);
-            Name = "TelaPrincipal";
+            Name = "TelaPrincipalForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Locadora de Automóveis 1.0";
@@ -362,5 +371,6 @@
         private ToolStripButton btnVizualizar;
         private ToolStripButton btnCadastrarCupom;
         private ToolStripMenuItem cadastrosToolStripMenuItem1;
+        private ToolStripMenuItem cuponsToolStripMenuItem;
     }
 }

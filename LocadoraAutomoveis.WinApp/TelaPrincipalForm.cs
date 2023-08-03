@@ -65,6 +65,12 @@ namespace LocadoraAutomoveis.WinApp
             ValidadorParceiro validadorParceiro = new ValidadorParceiro();
             ServicoParceiro servicoParceiro = new ServicoParceiro(repositorioParceiro, validadorParceiro);
             controladores.Add("ControladorParceiro", new ControladorParceiro(repositorioParceiro, servicoParceiro));
+
+            IRepositorioCupom repositorioCupom = new RepositorioCupomEmOrm(dbContext);
+            ValidadorCupom validadorCupom = new ValidadorCupom();
+            ServicoCupom servicoCupom = new ServicoCupom(repositorioCupom,validadorCupom);
+            controladores.Add("ControladorCupom", new ControladorCupom(repositorioCupom,repositorioParceiro, servicoCupom));
+
         }
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
         {
@@ -148,6 +154,11 @@ namespace LocadoraAutomoveis.WinApp
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             controlador.Excluir();
+        }
+
+        private void cuponsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(controladores["ControladorCupom"]);
         }
     }
 }

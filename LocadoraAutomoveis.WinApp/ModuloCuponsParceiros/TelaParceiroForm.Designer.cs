@@ -63,6 +63,7 @@
             // 
             // btnCancelar
             // 
+            btnCancelar.DialogResult = DialogResult.Cancel;
             btnCancelar.Location = new Point(269, 135);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(75, 23);

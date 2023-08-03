@@ -8,7 +8,7 @@ namespace LocadoraAutomoveis.Infra.Orm.ModuloCuponsParceiros
             builder.ToTable("TBParceiros");
             builder.Property(x => x.Id).IsRequired().ValueGeneratedNever();
             builder.Property(d => d.Nome).HasColumnType("varchar(100)").IsRequired();
-            builder.HasMany(x => x.Cupoms).WithOne(c => c.parceiro);
+            builder.HasMany(x => x.Cupoms).WithOne(c => c.Parceiro);
         }
     }
 }

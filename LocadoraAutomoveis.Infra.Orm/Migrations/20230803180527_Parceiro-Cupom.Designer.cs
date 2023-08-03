@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraAutomoveis.Infra.Orm.Migrations
 {
     [DbContext(typeof(LocadoraAutomoveisDbContext))]
-    [Migration("20230802173934_Parceiros")]
-    partial class Parceiros
+    [Migration("20230803180527_Parceiro-Cupom")]
+    partial class ParceiroCupom
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,17 +28,26 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCuponsParceiros.Cupom", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("parceiroId")
+                    b.Property<DateTime>("DataValidade")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<Guid>("ParceiroId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(20,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("parceiroId");
+                    b.HasIndex("ParceiroId");
 
-                    b.ToTable("Cupom");
+                    b.ToTable("TBCupom", (string)null);
                 });
 
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCuponsParceiros.Parceiro", b =>
@@ -57,13 +66,14 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
 
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCuponsParceiros.Cupom", b =>
                 {
-                    b.HasOne("LocadoraAutomoveis.Dominio.ModuloCuponsParceiros.Parceiro", "parceiro")
+                    b.HasOne("LocadoraAutomoveis.Dominio.ModuloCuponsParceiros.Parceiro", "Parceiro")
                         .WithMany("Cupoms")
-                        .HasForeignKey("parceiroId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParceiroId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_TBCupom_TBParceiro");
 
-                    b.Navigation("parceiro");
+                    b.Navigation("Parceiro");
                 });
 
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCuponsParceiros.Parceiro", b =>
