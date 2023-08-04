@@ -39,11 +39,64 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomoveis
                 CarregarAutomovel();
             }
         }
+        public override void Editar()
+        {
+            Guid id = tabelaAutomoveis.ObtemIdSelecionado();
+
+            Automovel automovelSelecionado = repositorioAutomoveis.SelecionarPorId(id);
+
+            if (automovelSelecionado == null)
+            {
+                MessageBox.Show("Selecione uma automovel primeiro",
+                "Edição de Automoveis", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            List<GrupoAutomovel> grupoAutomoveis = repositorioGrupoAutomoveis.SelecionarTodos();
+
+            TelaAutomoveisForm tela = new TelaAutomoveisForm(grupoAutomoveis);
+
+            tela.onGravarRegistro += servicoAutomoveis.Editar;
+
+            tela.ConfigurarAutomovel(automovelSelecionado);
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                CarregarAutomovel();
+            }
+        }
         public override void Excluir()
         {
-            throw new NotImplementedException();
-        }
+            Guid id = tabelaAutomoveis.ObtemIdSelecionado();
 
+            Automovel materiaSelecionada = repositorioAutomoveis.SelecionarPorId(id);
+
+            if (materiaSelecionada == null)
+            {
+                MessageBox.Show("Selecione uma automovel primeiro",
+                "Exclusão de Automoveis", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            DialogResult opcaoEscolhida = MessageBox.Show("Deseja realmente excluir a automovel?",
+               "Exclusão de Automoveis", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (opcaoEscolhida == DialogResult.OK)
+            {
+                Result resultado = servicoAutomoveis.Excluir(materiaSelecionada);
+
+                if (resultado.IsFailed)
+                {
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Automoveis", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
+                CarregarAutomovel();
+            }
+        }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
         {
