@@ -1,5 +1,4 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
-using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 
 namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
 {
@@ -27,9 +26,6 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
 
             if (PlacaDuplicada(automoveis))
                 erros.Add($"Esta placa '{automoveis.Placa}' já está sendo utilizada em outro veiculo");
-
-            if (ValidarPlacaNova(automoveis) || ValidarPlacaAntiga(automoveis))
-                erros.Add($"Este formato de placa '{automoveis.Placa}' nào pode ser utilizado");
 
             foreach (string erro in erros)
             {
