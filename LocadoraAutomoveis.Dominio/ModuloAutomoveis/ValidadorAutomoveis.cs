@@ -25,10 +25,6 @@
                 .NotEmpty()
                 .NotNull();
 
-            RuleFor(x => x.Quilometragem)
-                .NotEmpty()
-                .NotNull();
-
             RuleFor(x => x.Marca)
                 .NotEmpty()
                 .NotNull()
@@ -44,10 +40,6 @@
             RuleFor(x => x.Ano)
                 .NotEmpty()
                 .NotNull(); 
-            
-            RuleFor(x => x.Alugado)
-                .NotEmpty()
-                .NotNull();
         }
     }
 }

@@ -65,7 +65,7 @@ namespace LocadoraAutomoveis.WinApp
             ServicoAutomoveis servicoAutomoveis = new ServicoAutomoveis(repositorioAutomoveis, validationRules1);
 
             controladores.Add("ControladorGrupoAutomoveis", new ControladorGrupoAutomoveis(repositorioGrupoAutomoveis, servicoGrupoAutomoveis));
-            controladores.Add("ControladorAutomoveis", new ControladorAutomoveis(repositorioAutomoveis, servicoAutomoveis));
+            controladores.Add("ControladorAutomoveis", new ControladorAutomoveis(repositorioAutomoveis, repositorioGrupoAutomoveis, servicoAutomoveis));
         }
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
         {

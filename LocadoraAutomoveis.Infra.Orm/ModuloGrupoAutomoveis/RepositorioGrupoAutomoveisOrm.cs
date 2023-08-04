@@ -13,5 +13,6 @@ namespace LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis
         {
             return registros.FirstOrDefault(x => x.Tipo == nome);
         }
+
     }
 }

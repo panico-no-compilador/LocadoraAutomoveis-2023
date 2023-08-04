@@ -14,7 +14,32 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
             this.repositorioAutomoveis = repositorioAutomoveis;
             this.validadorAutomoveis = validadorAutomoveis;
         }
+        public Result Inserir(Automovel automovel)
+        {
+            Log.Debug("Tentando inserir o automovel...{@m}", automovel);
 
+            List<string> erros = ValidarAutomoveis(automovel);
+
+            if (erros.Count() > 0)
+                return Result.Fail(erros);
+
+            try
+            {
+                repositorioAutomoveis.Inserir(automovel);
+
+                Log.Debug("Automovel {AutomovelId} inserida com sucesso", automovel.Id);
+
+                return Result.Ok();
+            }
+            catch (Exception exc)
+            {
+                string msgErro = "Falha ao tentar inserir o automovel.";
+
+                Log.Error(exc, msgErro + "{@m}", automovel);
+
+                return Result.Fail(msgErro);
+            }
+        }
         private List<string> ValidarAutomoveis(Automovel automoveis)
         {
             var resultadoValidacao = validadorAutomoveis.Validate(automoveis);

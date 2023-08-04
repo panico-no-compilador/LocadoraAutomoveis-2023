@@ -50,6 +50,7 @@
             txtAno = new TextBox();
             label9 = new Label();
             txtPlaca = new TextBox();
+            openFileDialog1 = new OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -62,6 +63,7 @@
             btnGravar.TabIndex = 3;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.Click += btnGravar_Click;
             // 
             // btnCancelar
             // 
@@ -181,7 +183,6 @@
             // 
             // btnBuscarFoto
             // 
-            btnBuscarFoto.DialogResult = DialogResult.OK;
             btnBuscarFoto.Location = new Point(235, 39);
             btnBuscarFoto.Name = "btnBuscarFoto";
             btnBuscarFoto.Size = new Size(75, 40);
@@ -230,6 +231,10 @@
             txtPlaca.Name = "txtPlaca";
             txtPlaca.Size = new Size(107, 23);
             txtPlaca.TabIndex = 23;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
             // 
             // TelaAutomoveisForm
             // 
@@ -287,5 +292,6 @@
         private TextBox txtAno;
         private Label label9;
         private TextBox txtPlaca;
+        private OpenFileDialog openFileDialog1;
     }
 }

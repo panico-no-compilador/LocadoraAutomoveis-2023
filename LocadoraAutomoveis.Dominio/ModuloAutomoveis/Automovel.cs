@@ -15,7 +15,11 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
         public bool Alugado { get; set; }
         public int Ano { get; set; }
         public GrupoAutomovel Categoria { get; set; }
-
+        public Automovel()
+        {
+            this.Alugado = false;
+            this.Quilometragem = 0;
+        }
         public override void Atualizar(Automovel registro)
         {
             Cor = registro.Cor;
