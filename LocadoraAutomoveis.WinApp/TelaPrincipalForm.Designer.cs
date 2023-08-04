@@ -49,9 +49,6 @@
             btnVizualizar = new ToolStripButton();
             btnDevolucao = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
-            btnCadastrarCupom = new ToolStripButton();
-            btnCadastrarParceiros = new ToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
             btnPrecosCombustiveis = new ToolStripButton();
             toolStripSeparator4 = new ToolStripSeparator();
             labelTipoCadastro = new ToolStripLabel();
@@ -163,7 +160,7 @@
             // 
             toolbox.Enabled = false;
             toolbox.ImageScalingSize = new Size(20, 20);
-            toolbox.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator2, btnVizualizar, btnDevolucao, toolStripSeparator3, btnCadastrarCupom, btnCadastrarParceiros, toolStripSeparator1, btnPrecosCombustiveis, toolStripSeparator4, labelTipoCadastro });
+            toolbox.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator2, btnVizualizar, btnDevolucao, toolStripSeparator3, btnPrecosCombustiveis, toolStripSeparator4, labelTipoCadastro });
             toolbox.Location = new Point(0, 24);
             toolbox.Name = "toolbox";
             toolbox.Size = new Size(686, 32);
@@ -232,31 +229,6 @@
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
             toolStripSeparator3.Size = new Size(6, 32);
-            // 
-            // btnCadastrarCupom
-            // 
-            btnCadastrarCupom.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnCadastrarCupom.ImageScaling = ToolStripItemImageScaling.None;
-            btnCadastrarCupom.ImageTransparentColor = Color.Magenta;
-            btnCadastrarCupom.Name = "btnCadastrarCupom";
-            btnCadastrarCupom.Padding = new Padding(5);
-            btnCadastrarCupom.Size = new Size(61, 29);
-            btnCadastrarCupom.Text = "Cupom";
-            // 
-            // btnCadastrarParceiros
-            // 
-            btnCadastrarParceiros.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnCadastrarParceiros.ImageScaling = ToolStripItemImageScaling.None;
-            btnCadastrarParceiros.ImageTransparentColor = Color.Magenta;
-            btnCadastrarParceiros.Name = "btnCadastrarParceiros";
-            btnCadastrarParceiros.Padding = new Padding(5);
-            btnCadastrarParceiros.Size = new Size(69, 29);
-            btnCadastrarParceiros.Text = "Parceiros";
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 32);
             // 
             // btnPrecosCombustiveis
             // 
@@ -356,8 +328,6 @@
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem materiasMenuItem;
         private ToolStripMenuItem questoesMenuItem;
-        private ToolStripButton btnCadastrarParceiros;
-        private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem testesMenuItem;
         private ToolStripButton btnDuplicar;
         private ToolStripButton btnDevolucao;
