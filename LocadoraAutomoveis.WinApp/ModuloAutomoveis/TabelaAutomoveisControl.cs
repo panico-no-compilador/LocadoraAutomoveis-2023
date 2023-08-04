@@ -10,7 +10,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomoveis
             InitializeComponent();
             tabelaAutomovel.ConfigurarGridSomenteLeitura();
             tabelaAutomovel.ConfigurarGridZebrado();
-            tabelaAutomovel.Columns.AddRange();
+            tabelaAutomovel.Columns.AddRange(ObterColunas());
         }
         public DataGridViewColumn[] ObterColunas()
         {

@@ -15,7 +15,32 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
             this.repositorioAutomoveis = repositorioAutomoveis;
             this.validadorAutomoveis = validadorAutomoveis;
         }
+        public Result Inserir(Automovel automovel)
+        {
+            Log.Debug("Tentando inserir o automovel...{@m}", automovel);
 
+            List<string> erros = ValidarAutomoveis(automovel);
+
+            if (erros.Count() > 0)
+                return Result.Fail(erros);
+
+            try
+            {
+                repositorioAutomoveis.Inserir(automovel);
+
+                Log.Debug("Automovel {AutomovelId} inserida com sucesso", automovel.Id);
+
+                return Result.Ok();
+            }
+            catch (Exception exc)
+            {
+                string msgErro = "Falha ao tentar inserir o automovel.";
+
+                Log.Error(exc, msgErro + "{@m}", automovel);
+
+                return Result.Fail(msgErro);
+            }
+        }
         private List<string> ValidarAutomoveis(Automovel automoveis)
         {
             var resultadoValidacao = validadorAutomoveis.Validate(automoveis);
@@ -27,9 +52,6 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
 
             if (PlacaDuplicada(automoveis))
                 erros.Add($"Esta placa '{automoveis.Placa}' já está sendo utilizada em outro veiculo");
-
-            if (ValidarPlacaNova(automoveis) || ValidarPlacaAntiga(automoveis))
-                erros.Add($"Este formato de placa '{automoveis.Placa}' nào pode ser utilizado");
 
             foreach (string erro in erros)
             {
@@ -51,47 +73,6 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
             }
 
             return false;
-        }
-        public bool ValidarPlacaAntiga(Automovel grupoAutomoveis)
-        {
-            string placa = grupoAutomoveis.Placa;
-            if (string.IsNullOrEmpty(placa) || placa.Length != 7)
-            {
-                return false;
-            }
-
-            string letras = placa.Substring(0, 3);
-            string numeros = placa.Substring(3);
-
-            // Verifica se as três primeiras posições são letras e as quatro últimas são números
-            if (!letras.All(char.IsLetter) || !numeros.All(char.IsDigit))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool ValidarPlacaNova(Automovel grupoAutomoveis)
-        {
-            string placa = grupoAutomoveis.Placa;
-            if (string.IsNullOrEmpty(placa) || placa.Length != 8)
-            {
-                return false;
-            }
-
-            string letrasParte1 = placa.Substring(0, 3);
-            string algarismo = placa.Substring(3, 1);
-            string letra = placa.Substring(4, 1);
-            string numerosParte2 = placa.Substring(5);
-
-            // Verifica se as três primeiras posições são letras, o quarto é um dígito, a quinta é uma letra e as últimas três são números
-            if (!letrasParte1.All(char.IsLetter) || !char.IsDigit(algarismo[0]) || !char.IsLetter(letra[0]) || !numerosParte2.All(char.IsDigit))
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 }
