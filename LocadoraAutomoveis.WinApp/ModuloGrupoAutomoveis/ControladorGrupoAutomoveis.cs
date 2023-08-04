@@ -22,7 +22,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
         {
             Guid id = tabelaGrupoAutomoveis.ObtemIdSelecionado();
 
-            GrupoAutomoveis GrupoAutomoveisSelecionada = repositorioGrupoAutomoveis.SelecionarPorId(id);
+            GrupoAutomovel GrupoAutomoveisSelecionada = repositorioGrupoAutomoveis.SelecionarPorId(id);
 
             if (GrupoAutomoveisSelecionada == null)
             {
@@ -56,7 +56,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 
             tela.onGravarRegistro += servicoGrupoAutomoveis.Inserir;
 
-            tela.ConfigurarGrupoAutomoveis(new GrupoAutomoveis());
+            tela.ConfigurarGrupoAutomoveis(new GrupoAutomovel());
 
             DialogResult resultado = tela.ShowDialog();
 
@@ -83,7 +83,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 
         private void CarregarGrupoAutomoveis()
         {
-            List<GrupoAutomoveis> GrupoAutomoveiss = repositorioGrupoAutomoveis.SelecionarTodos();
+            List<GrupoAutomovel> GrupoAutomoveiss = repositorioGrupoAutomoveis.SelecionarTodos();
 
             tabelaGrupoAutomoveis.AtualizarRegistros(GrupoAutomoveiss);
 
@@ -95,7 +95,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
         {
             Guid id = tabelaGrupoAutomoveis.ObtemIdSelecionado();
 
-            GrupoAutomoveis grupAutoSelecionado = repositorioGrupoAutomoveis.SelecionarPorId(id);
+            GrupoAutomovel grupAutoSelecionado = repositorioGrupoAutomoveis.SelecionarPorId(id);
 
             if (grupAutoSelecionado == null)
             {

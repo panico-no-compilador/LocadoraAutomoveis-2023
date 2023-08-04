@@ -1,8 +1,12 @@
+using LocadoraAutomoveis.Aplicacao.ModuloAutomoveis;
 using LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
+using LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.ModuloAutomoveis;
 using LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -52,12 +56,16 @@ namespace LocadoraAutomoveis.WinApp
             var dbContext = new LocadoraAutomoveisDbContext(optionsBuilder.Options);
 
             IRepositorioGrupoAutomoveis repositorioGrupoAutomoveis = new RepositorioGrupoAutomoveisOrm(dbContext);
+            IRepositorioAutomoveis repositorioAutomoveis = new RepositorioAutomoveisOrm(dbContext);
 
             ValidadorGrupoAutomoveis validationRules = new ValidadorGrupoAutomoveis();
+            ValidadorAutomoveis validationRules1 = new ValidadorAutomoveis();
 
             ServicoGrupoAutomoveis servicoGrupoAutomoveis = new ServicoGrupoAutomoveis(repositorioGrupoAutomoveis, validationRules);
+            ServicoAutomoveis servicoAutomoveis = new ServicoAutomoveis(repositorioAutomoveis, validationRules1);
 
             controladores.Add("ControladorGrupoAutomoveis", new ControladorGrupoAutomoveis(repositorioGrupoAutomoveis, servicoGrupoAutomoveis));
+            controladores.Add("ControladorAutomoveis", new ControladorAutomoveis(repositorioAutomoveis, servicoAutomoveis));
         }
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
         {
@@ -76,6 +84,10 @@ namespace LocadoraAutomoveis.WinApp
         public void AtualizarRodape(string mensagem)
         {
             labelRodape.Text = mensagem;
+        }
+        private void materiasMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(controladores["ControladorAutomoveis"]);
         }
 
         private void grupoDeAutoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -137,5 +149,6 @@ namespace LocadoraAutomoveis.WinApp
         {
             controlador.Excluir();
         }
+
     }
 }

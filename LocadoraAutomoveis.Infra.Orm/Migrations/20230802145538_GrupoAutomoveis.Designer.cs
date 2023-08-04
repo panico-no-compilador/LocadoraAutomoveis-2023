@@ -13,7 +13,7 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
 {
     [DbContext(typeof(LocadoraAutomoveisDbContext))]
     [Migration("20230802145538_GrupoAutomoveis")]
-    partial class GrupoAutomoveis
+    partial class GrupoAutomovel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

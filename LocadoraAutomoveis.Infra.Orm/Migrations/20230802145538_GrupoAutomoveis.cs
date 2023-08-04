@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LocadoraAutomoveis.Infra.Orm.Migrations
 {
     /// <inheritdoc />
-    public partial class GrupoAutomoveis : Migration
+    public partial class GrupoAutomovel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

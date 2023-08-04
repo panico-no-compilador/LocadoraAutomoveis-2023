@@ -5,8 +5,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 {
     public partial class TelaGrupoAutomoveisForm : Form
     {
-        private GrupoAutomoveis grupoAutomoveis;
-        public event GravarRegistroDelegate<GrupoAutomoveis> onGravarRegistro;
+        private GrupoAutomovel grupoAutomoveis;
+        public event GravarRegistroDelegate<GrupoAutomovel> onGravarRegistro;
 
         public TelaGrupoAutomoveisForm()
         {
@@ -14,12 +14,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
             this.ConfigurarDialog();
         }
 
-        internal void ConfigurarGrupoAutomoveis(GrupoAutomoveis grupoAutomoveis)
+        internal void ConfigurarGrupoAutomoveis(GrupoAutomovel grupoAutomoveis)
         {
             this.grupoAutomoveis = grupoAutomoveis;
             txtTipo.Text = grupoAutomoveis.Tipo;
         }
-        public GrupoAutomoveis ObterGrupoAutomoveis()
+        public GrupoAutomovel ObterGrupoAutomoveis()
         {
             grupoAutomoveis.Tipo = txtTipo.Text;
             return grupoAutomoveis;

@@ -1,6 +1,6 @@
 ﻿namespace LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis
 {
-    public class ValidadorGrupoAutomoveis : AbstractValidator<GrupoAutomoveis>, IValidadorGrupoAutomoveis
+    public class ValidadorGrupoAutomoveis : AbstractValidator<GrupoAutomovel>, IValidadorGrupoAutomoveis
     {
         public ValidadorGrupoAutomoveis()
         {

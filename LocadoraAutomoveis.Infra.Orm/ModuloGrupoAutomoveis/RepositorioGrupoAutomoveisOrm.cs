@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis
 {
-    public class RepositorioGrupoAutomoveisOrm : RepositorioBaseEmOrm<GrupoAutomoveis>, IRepositorioGrupoAutomoveis
+    public class RepositorioGrupoAutomoveisOrm : RepositorioBaseEmOrm<GrupoAutomovel>, IRepositorioGrupoAutomoveis
     {
         public RepositorioGrupoAutomoveisOrm(LocadoraAutomoveisDbContext dbContext) : base(dbContext)
         {
         }
 
-        public GrupoAutomoveis SelecionarPorNome(string nome)
+        public GrupoAutomovel SelecionarPorNome(string nome)
         {
             return registros.FirstOrDefault(x => x.Tipo == nome);
         }

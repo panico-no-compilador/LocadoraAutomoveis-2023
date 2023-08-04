@@ -92,6 +92,7 @@
             materiasMenuItem.ShortcutKeys = Keys.F2;
             materiasMenuItem.Size = new Size(203, 22);
             materiasMenuItem.Text = "Automóveis";
+            materiasMenuItem.Click += materiasMenuItem_Click;
             // 
             // questoesMenuItem
             // 

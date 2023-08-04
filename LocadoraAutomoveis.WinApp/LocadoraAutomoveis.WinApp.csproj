@@ -10,7 +10,6 @@
 	<ItemGroup>
 		<Folder Include="ModuloFuncionarios\" />
 		<Folder Include="ModuloPlanosCobranca\" />
-		<Folder Include="ModuloAutomoveis\" />
 		<Folder Include="ModuloClientes\" />
 		<Folder Include="ModuloCondutores\" />
 		<Folder Include="ModuloTaxasServicos\" />

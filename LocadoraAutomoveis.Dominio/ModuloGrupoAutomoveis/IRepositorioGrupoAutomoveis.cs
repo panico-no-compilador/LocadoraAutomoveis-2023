@@ -1,7 +1,7 @@
 ﻿namespace LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis
 {
-    public interface IRepositorioGrupoAutomoveis : IRepositorio<GrupoAutomoveis>
+    public interface IRepositorioGrupoAutomoveis : IRepositorio<GrupoAutomovel>
     {
-        GrupoAutomoveis SelecionarPorNome(string nome);
+        GrupoAutomovel SelecionarPorNome(string nome);
     }
 }

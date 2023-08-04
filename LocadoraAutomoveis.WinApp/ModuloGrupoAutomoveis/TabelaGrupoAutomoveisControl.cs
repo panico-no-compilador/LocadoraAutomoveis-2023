@@ -37,11 +37,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
             return tabelaGrupoAuto.SelecionarId();
         }
 
-        public void AtualizarRegistros(List<GrupoAutomoveis> GrupoAutomoveiss)
+        public void AtualizarRegistros(List<GrupoAutomovel> GrupoAutomoveiss)
         {
             tabelaGrupoAuto.Rows.Clear();
 
-            foreach (GrupoAutomoveis GrupoAutomoveis in GrupoAutomoveiss)
+            foreach (GrupoAutomovel GrupoAutomoveis in GrupoAutomoveiss)
             {
                 tabelaGrupoAuto.Rows.Add(GrupoAutomoveis.Id, GrupoAutomoveis.Tipo);
             }
