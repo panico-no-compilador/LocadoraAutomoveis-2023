@@ -13,6 +13,32 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloPlanosCobranca
             this.repositorioPlanoCobranca = repositorioPlanoCobranca;
             this.validadorPlanoCobranca = validadorPlanoCobranca;
         }
+        public Result Inserir(PlanoCobranca planoCobranca)
+        {
+            Log.Debug("Tentando inserir um plano de cobrança...{@m}", planoCobranca);
+
+            List<string> erros = ValidarPlanoCobranca(planoCobranca);
+
+            if (erros.Count() > 0)
+                return Result.Fail(erros);
+
+            try
+            {
+                repositorioPlanoCobranca.Inserir(planoCobranca);
+
+                Log.Debug("O Plano de Cobrança {PlanoCobrancaId} inserido com sucesso", planoCobranca.Id);
+
+                return Result.Ok();
+            }
+            catch (Exception exc)
+            {
+                string msgErro = "Falha ao tentar inserir um plano de cobrança.";
+
+                Log.Error(exc, msgErro + "{@m}", planoCobranca);
+
+                return Result.Fail(msgErro);
+            }
+        }
         private List<string> ValidarPlanoCobranca(PlanoCobranca planoCobranca)
         {
             var resultadoValidacao = validadorPlanoCobranca.Validate(planoCobranca);

@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Aplicacao.ModuloPlanosCobranca;
+﻿using LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Aplicacao.ModuloPlanosCobranca;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobranca;
 using LocadoraAutomoveis.WinApp.Compartilhado;
@@ -16,7 +17,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
         IRepositorioGrupoAutomoveis _repositorioGrupo;
         IRepositorioPlanoCobranca _repositorioPlano;
         ServicoPlanoCobranca servicoPlano;
-        TabelaPlanoCobranca tabelaPlanoCobranca;
+        TabelaPlanoCobrancaControl tabelaPlanoCobranca;
         public ControladorPlanoCobranca(
             IRepositorioGrupoAutomoveis repositorioGrupo,
             IRepositorioPlanoCobranca repositorioPlano,
@@ -35,7 +36,19 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
 
         public override void Inserir()
         {
-            throw new NotImplementedException();
+            List<GrupoAutomovel> listGrupoAutomoveis = _repositorioGrupo.SelecionarTodos();
+            TelaPlanoCobrancaForm tela = new TelaPlanoCobrancaForm(listGrupoAutomoveis);
+
+            tela.onGravarRegistro += servicoPlano.Inserir;
+
+            tela.ConfigurarPlanoCobranca(new PlanoCobranca());
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                CarregarPlanoCobranca();
+            }
         }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
@@ -46,7 +59,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
         public override UserControl ObtemListagem()
         {
             if (tabelaPlanoCobranca == null)
-                tabelaPlanoCobranca = new TabelaPlanoCobranca();
+                tabelaPlanoCobranca = new TabelaPlanoCobrancaControl();
 
             CarregarPlanoCobranca();
 

@@ -12,9 +12,9 @@ namespace LocadoraAutomoveis.Infra.Orm.ModuloPlanosCobranca
 
             planoCobrancaBuilder.Property(x => x.TipoPlano).IsRequired();
 
-            planoCobrancaBuilder.Property(x => x.PrecoDiaria).IsRequired();
+            planoCobrancaBuilder.Property(x => x.PrecoDiaria).HasColumnType("decimal(10,2)").IsRequired();
 
-            planoCobrancaBuilder.Property(x => x.PrecoKm).IsRequired();
+            planoCobrancaBuilder.Property(x => x.PrecoKm).HasColumnType("decimal(10,2)").IsRequired();
 
             planoCobrancaBuilder.Property(x => x.KmDisponiveis).IsRequired();
 

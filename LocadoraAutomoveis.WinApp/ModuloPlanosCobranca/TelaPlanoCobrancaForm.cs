@@ -10,6 +10,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
     public partial class TelaPlanoCobrancaForm : Form
     {
         PlanoCobranca planoCobranca;
+        public event GravarRegistroDelegate<PlanoCobranca> onGravarRegistro;
         public TelaPlanoCobrancaForm(List<GrupoAutomovel>
             grupoAutomoveis)
         {
@@ -18,7 +19,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
             CarregarGrupoAutomoveis(grupoAutomoveis);
             CarregarCmbTipoPlano();
         }
-        public PlanoCobranca ObterAutomovel()
+        public PlanoCobranca ObterPlanoCobranca()
         {
 
             planoCobranca.CategoriaGrupAuto = cmbCategoriaGrupAuto.SelectedItem as GrupoAutomovel;
@@ -29,15 +30,17 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
 
             return planoCobranca;
         }
-        public void ConfigurarAutomovel(PlanoCobranca planoCobranca)
+        public void ConfigurarPlanoCobranca(PlanoCobranca planoCobranca)
         {
             this.planoCobranca = planoCobranca;
 
-            cmbCategoriaGrupAuto.SelectedItem = planoCobranca.CategoriaGrupAuto.ToString();
-            cmbTipoPlanos.SelectedItem = planoCobranca.TipoPlano.ToString();
-            txtPrecoDiaria.Text = planoCobranca.PrecoDiaria.ToString();
-            txtPrecoKm.Text = planoCobranca.PrecoKm.ToString();
+            cmbCategoriaGrupAuto.SelectedItem = planoCobranca.CategoriaGrupAuto;
+            cmbTipoPlanos.SelectedItem = planoCobranca.TipoPlano;
+            txtPrecoDiaria.Value = planoCobranca.PrecoDiaria;
+            txtPrecoKm.Value = planoCobranca.PrecoKm;
             txtKmDisponiveis.Text = planoCobranca.KmDisponiveis.ToString();
+
+            HabilidarInputs();
         }
         private void CarregarGrupoAutomoveis(List<GrupoAutomovel> grupoAutomoveis)
         {
@@ -51,26 +54,49 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
 
         private void cmbTipoPlanos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TipoPlanoEnum tipoPlano = (TipoPlanoEnum)cmbTipoPlanos.SelectedItem;
-            if (tipoPlano.ToString() == TipoPlanoEnum.Livre.ToString())
+            HabilidarInputs();
+        }
+
+        private void HabilidarInputs()
+        {
+            if (cmbTipoPlanos.SelectedItem is KeyValuePair<System.Enum, string> selectedPair)
             {
-                txtKmDisponiveis.Enabled = true;
-                txtPrecoDiaria.Enabled = false;
-                txtPrecoKm.Enabled = true;
-            }
-            else if (tipoPlano.ToString() == TipoPlanoEnum.Diario.ToString())
-            {
-                txtKmDisponiveis.Enabled = true;
-                txtPrecoDiaria.Enabled = false;
-                txtPrecoKm.Enabled = false;
-            }
-            else if (tipoPlano.ToString() == TipoPlanoEnum.Controlador.ToString())
-            {
-                txtKmDisponiveis.Enabled = false;
-                txtPrecoDiaria.Enabled = false;
-                txtPrecoKm.Enabled = false;
+                TipoPlanoEnum tipoPlano;
+
+                if (selectedPair.Key is TipoPlanoEnum)
+                {
+                    tipoPlano = (TipoPlanoEnum)selectedPair.Key;
+                }
+                else
+                {
+                    // Trate o cenário em que a chave não é do tipo TipoPlanoEnum
+                    // Isso pode ocorrer se o dicionário contiver outros enums como chave
+                    return;
+                }
+
+                switch (tipoPlano)
+                {
+                    case TipoPlanoEnum.Livre:
+                        txtKmDisponiveis.Enabled = false;
+                        txtPrecoDiaria.Enabled = true;
+                        txtPrecoKm.Enabled = false;
+                        break;
+                    case TipoPlanoEnum.Diario:
+                        txtKmDisponiveis.Enabled = false;
+                        txtPrecoDiaria.Enabled = true;
+                        txtPrecoKm.Enabled = true;
+                        break;
+                    case TipoPlanoEnum.Controlador:
+                        txtKmDisponiveis.Enabled = true;
+                        txtPrecoDiaria.Enabled = true;
+                        txtPrecoKm.Enabled = true;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+
         private void CarregarCmbTipoPlano()
         {
             TipoPlanoEnum[] tipoCombustivel = Enum.GetValues<TipoPlanoEnum>();
@@ -86,6 +112,22 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
             cmbTipoPlanos.DataSource = items;
             cmbTipoPlanos.DisplayMember = "Value";
             cmbTipoPlanos.ValueMember = "Key";
+        }
+
+        private void btnGravar_Click(object sender, EventArgs e)
+        {
+            this.planoCobranca = ObterPlanoCobranca();
+
+            Result resultado = onGravarRegistro(planoCobranca);
+
+            if (resultado.IsFailed)
+            {
+                string erro = resultado.Errors[0].Message;
+
+                TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+
+                DialogResult = DialogResult.None;
+            }
         }
     }
 }

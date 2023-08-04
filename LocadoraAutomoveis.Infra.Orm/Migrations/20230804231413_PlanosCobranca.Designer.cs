@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraAutomoveis.Infra.Orm.Migrations
 {
     [DbContext(typeof(LocadoraAutomoveisDbContext))]
-    [Migration("20230804212251_PlanosCobranca")]
+    [Migration("20230804231413_PlanosCobranca")]
     partial class PlanosCobranca
     {
         /// <inheritdoc />
@@ -51,10 +51,10 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("PrecoDiaria")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<decimal>("PrecoKm")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("TipoPlano")
                         .HasColumnType("int");

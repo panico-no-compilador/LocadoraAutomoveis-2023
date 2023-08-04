@@ -18,8 +18,8 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoriaGrupAutoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TipoPlano = table.Column<int>(type: "int", nullable: false),
-                    PrecoDiaria = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PrecoKm = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PrecoDiaria = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    PrecoKm = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     KmDisponiveis = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

@@ -1,4 +1,6 @@
-﻿namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
+﻿using LocadoraAutomoveis.Dominio.ModuloPlanosCobranca;
+
+namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
 {
     partial class TelaPlanoCobrancaForm
     {
@@ -33,17 +35,18 @@
             label1 = new Label();
             cmbCategoriaGrupAuto = new ComboBox();
             gbConfiguracao = new GroupBox();
-            label2 = new Label();
-            cmbTipoPlanos = new ComboBox();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            txtKmDisponiveis = new MaskedTextBox();
-            txtPrecoDiaria = new NumericUpDown();
+            txtKmDisponiveis = new NumericUpDown();
             txtPrecoKm = new NumericUpDown();
+            txtPrecoDiaria = new NumericUpDown();
+            label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            cmbTipoPlanos = new ComboBox();
+            label2 = new Label();
             gbConfiguracao.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)txtPrecoDiaria).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtKmDisponiveis).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtPrecoKm).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtPrecoDiaria).BeginInit();
             SuspendLayout();
             // 
             // btnGravar
@@ -52,9 +55,10 @@
             btnGravar.Location = new Point(182, 229);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(75, 45);
-            btnGravar.TabIndex = 3;
+            btnGravar.TabIndex = 6;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.Click += btnGravar_Click;
             // 
             // btnCancelar
             // 
@@ -62,7 +66,7 @@
             btnCancelar.Location = new Point(263, 229);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(75, 45);
-            btnCancelar.TabIndex = 4;
+            btnCancelar.TabIndex = 7;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -81,7 +85,7 @@
             cmbCategoriaGrupAuto.Location = new Point(162, 17);
             cmbCategoriaGrupAuto.Name = "cmbCategoriaGrupAuto";
             cmbCategoriaGrupAuto.Size = new Size(176, 23);
-            cmbCategoriaGrupAuto.TabIndex = 6;
+            cmbCategoriaGrupAuto.TabIndex = 1;
             // 
             // gbConfiguracao
             // 
@@ -100,41 +104,34 @@
             gbConfiguracao.TabStop = false;
             gbConfiguracao.Text = "Configuração de Planos";
             // 
-            // label2
+            // txtKmDisponiveis
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(34, 35);
-            label2.Name = "label2";
-            label2.Size = new Size(92, 15);
-            label2.TabIndex = 0;
-            label2.Text = "Tipos de Planos:";
+            txtKmDisponiveis.Location = new Point(132, 127);
+            txtKmDisponiveis.Maximum = new decimal(new int[] { 9000000, 0, 0, 0 });
+            txtKmDisponiveis.Name = "txtKmDisponiveis";
+            txtKmDisponiveis.Size = new Size(159, 23);
+            txtKmDisponiveis.TabIndex = 5;
+            txtKmDisponiveis.TextAlign = HorizontalAlignment.Center;
             // 
-            // cmbTipoPlanos
+            // txtPrecoKm
             // 
-            cmbTipoPlanos.FormattingEnabled = true;
-            cmbTipoPlanos.Location = new Point(132, 32);
-            cmbTipoPlanos.Name = "cmbTipoPlanos";
-            cmbTipoPlanos.Size = new Size(159, 23);
-            cmbTipoPlanos.TabIndex = 1;
-            cmbTipoPlanos.SelectedIndexChanged += cmbTipoPlanos_SelectedIndexChanged;
+            txtPrecoKm.DecimalPlaces = 2;
+            txtPrecoKm.Location = new Point(132, 93);
+            txtPrecoKm.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
+            txtPrecoKm.Name = "txtPrecoKm";
+            txtPrecoKm.Size = new Size(159, 23);
+            txtPrecoKm.TabIndex = 4;
+            txtPrecoKm.TextAlign = HorizontalAlignment.Center;
             // 
-            // label3
+            // txtPrecoDiaria
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(53, 64);
-            label3.Name = "label3";
-            label3.Size = new Size(73, 15);
-            label3.TabIndex = 2;
-            label3.Text = "Preço Diária:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(44, 93);
-            label4.Name = "label4";
-            label4.Size = new Size(82, 15);
-            label4.TabIndex = 5;
-            label4.Text = "Preço por Km:";
+            txtPrecoDiaria.DecimalPlaces = 2;
+            txtPrecoDiaria.Location = new Point(132, 64);
+            txtPrecoDiaria.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
+            txtPrecoDiaria.Name = "txtPrecoDiaria";
+            txtPrecoDiaria.Size = new Size(159, 23);
+            txtPrecoDiaria.TabIndex = 3;
+            txtPrecoDiaria.TextAlign = HorizontalAlignment.Center;
             // 
             // label5
             // 
@@ -145,32 +142,41 @@
             label5.TabIndex = 6;
             label5.Text = "Km Disponíveis:";
             // 
-            // txtKmDisponiveis
+            // label4
             // 
-            txtKmDisponiveis.Location = new Point(132, 126);
-            txtKmDisponiveis.Mask = "0000000000";
-            txtKmDisponiveis.Name = "txtKmDisponiveis";
-            txtKmDisponiveis.Size = new Size(159, 23);
-            txtKmDisponiveis.TabIndex = 10;
-            txtKmDisponiveis.TextAlign = HorizontalAlignment.Center;
+            label4.AutoSize = true;
+            label4.Location = new Point(44, 93);
+            label4.Name = "label4";
+            label4.Size = new Size(82, 15);
+            label4.TabIndex = 5;
+            label4.Text = "Preço por Km:";
             // 
-            // txtPrecoDiaria
+            // label3
             // 
-            txtPrecoDiaria.DecimalPlaces = 2;
-            txtPrecoDiaria.Location = new Point(132, 64);
-            txtPrecoDiaria.Name = "txtPrecoDiaria";
-            txtPrecoDiaria.Size = new Size(159, 23);
-            txtPrecoDiaria.TabIndex = 8;
-            txtPrecoDiaria.TextAlign = HorizontalAlignment.Center;
+            label3.AutoSize = true;
+            label3.Location = new Point(53, 64);
+            label3.Name = "label3";
+            label3.Size = new Size(73, 15);
+            label3.TabIndex = 2;
+            label3.Text = "Preço Diária:";
             // 
-            // txtPrecoKm
+            // cmbTipoPlanos
             // 
-            txtPrecoKm.DecimalPlaces = 2;
-            txtPrecoKm.Location = new Point(132, 93);
-            txtPrecoKm.Name = "txtPrecoKm";
-            txtPrecoKm.Size = new Size(159, 23);
-            txtPrecoKm.TabIndex = 9;
-            txtPrecoKm.TextAlign = HorizontalAlignment.Center;
+            cmbTipoPlanos.FormattingEnabled = true;
+            cmbTipoPlanos.Location = new Point(132, 32);
+            cmbTipoPlanos.Name = "cmbTipoPlanos";
+            cmbTipoPlanos.Size = new Size(159, 23);
+            cmbTipoPlanos.TabIndex = 2;
+            cmbTipoPlanos.SelectedIndexChanged += cmbTipoPlanos_SelectedIndexChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(34, 35);
+            label2.Name = "label2";
+            label2.Size = new Size(92, 15);
+            label2.TabIndex = 0;
+            label2.Text = "Tipos de Planos:";
             // 
             // TelaPlanoCobrancaForm
             // 
@@ -186,8 +192,9 @@
             Text = "Cadastro de Grupo Automoveis";
             gbConfiguracao.ResumeLayout(false);
             gbConfiguracao.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)txtPrecoDiaria).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtKmDisponiveis).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtPrecoKm).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtPrecoDiaria).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -204,8 +211,8 @@
         private Label label5;
         private Label label4;
         private NumericUpDown numericUpDown1;
-        private MaskedTextBox txtKmDisponiveis;
         private NumericUpDown txtPrecoKm;
         private NumericUpDown txtPrecoDiaria;
+        private NumericUpDown txtKmDisponiveis;
     }
 }

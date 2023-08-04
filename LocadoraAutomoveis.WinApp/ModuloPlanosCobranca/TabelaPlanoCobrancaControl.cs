@@ -3,9 +3,9 @@ using LocadoraAutomoveis.WinApp.Compartilhado;
 
 namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
 {
-    public partial class TabelaPlanoCobranca : UserControl
+    public partial class TabelaPlanoCobrancaControl : UserControl
     {
-        public TabelaPlanoCobranca()
+        public TabelaPlanoCobrancaControl()
         {
             InitializeComponent();
             tabelaPlanoCobranca.ConfigurarGridSomenteLeitura();
@@ -18,13 +18,15 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
             {
                 new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id", FillWeight=15F, Visible=false },
 
-                new DataGridViewTextBoxColumn { Name = "TipoPlano", HeaderText = "Placa", FillWeight=85F },
+                new DataGridViewTextBoxColumn { Name = "CategoriaGrupAuto.Tipo", HeaderText = "Grupo Automovel", FillWeight=85F },
 
-                new DataGridViewTextBoxColumn { Name = "PrecoDiaria", HeaderText = "Marca", FillWeight=85F },
+                new DataGridViewTextBoxColumn { Name = "TipoPlano", HeaderText = "Tipo Plano", FillWeight=85F },
 
-                new DataGridViewTextBoxColumn { Name = "PrecoKm", HeaderText = "Modelo", FillWeight=85F },
+                new DataGridViewTextBoxColumn { Name = "PrecoDiaria", HeaderText = "Preço Diaria", FillWeight=85F },
 
-                new DataGridViewTextBoxColumn { Name = "KmDisponiveis", HeaderText = "Cor", FillWeight=85F }
+                new DataGridViewTextBoxColumn { Name = "PrecoKm", HeaderText = "Preço Km", FillWeight=85F },
+
+                new DataGridViewTextBoxColumn { Name = "KmDisponiveis", HeaderText = "Km Disponiveis", FillWeight=85F }
             };
 
             return colunas;
@@ -40,7 +42,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
 
             foreach (PlanoCobranca planoCobranca in planosCobrancas)
             {
-                tabelaPlanoCobranca.Rows.Add(planoCobranca.Id, planoCobranca.TipoPlano, planoCobranca.PrecoDiaria, planoCobranca.PrecoKm, planoCobranca.KmDisponiveis);
+                tabelaPlanoCobranca.Rows.Add(planoCobranca.Id, planoCobranca.CategoriaGrupAuto.Tipo, planoCobranca.TipoPlano, planoCobranca.PrecoDiaria, planoCobranca?.PrecoKm, planoCobranca?.KmDisponiveis);
             }
         }
     }
