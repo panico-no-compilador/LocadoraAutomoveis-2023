@@ -1,9 +1,13 @@
 using LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Aplicacao.ModuloPlanosCobranca;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloPlanosCobranca;
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Infra.Orm.ModuloPlanosCobranca;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.WinApp.ModuloPlanosCobranca;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -52,12 +56,16 @@ namespace LocadoraAutomoveis.WinApp
             var dbContext = new LocadoraAutomoveisDbContext(optionsBuilder.Options);
 
             IRepositorioGrupoAutomoveis repositorioGrupoAutomoveis = new RepositorioGrupoAutomoveisOrm(dbContext);
+            IRepositorioPlanoCobranca repositorioPlanoCobranca = new RepositorioPlanoCobrancaOrm(dbContext);
 
             ValidadorGrupoAutomoveis validationRules = new ValidadorGrupoAutomoveis();
+            ValidadorPlanoCobranca validationRules1 = new ValidadorPlanoCobranca();
 
             ServicoGrupoAutomoveis servicoGrupoAutomoveis = new ServicoGrupoAutomoveis(repositorioGrupoAutomoveis, validationRules);
+            ServicoPlanoCobranca servicoPlanoCobranca = new ServicoPlanoCobranca(repositorioPlanoCobranca, validationRules1);
 
             controladores.Add("ControladorGrupoAutomoveis", new ControladorGrupoAutomoveis(repositorioGrupoAutomoveis, servicoGrupoAutomoveis));
+            controladores.Add("ControladorPlanoCobranca", new ControladorPlanoCobranca(repositorioGrupoAutomoveis, repositorioPlanoCobranca, servicoPlanoCobranca));
         }
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
         {
@@ -82,7 +90,10 @@ namespace LocadoraAutomoveis.WinApp
         {
             ConfigurarTelaPrincipal(controladores["ControladorGrupoAutomoveis"]);
         }
-
+        private void planosECobrançasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(controladores["ControladorPlanoCobranca"]);
+        }
         private void ConfigurarTelaPrincipal(ControladorBase controladorBase)
         {
             this.controlador = controladorBase;
@@ -137,5 +148,7 @@ namespace LocadoraAutomoveis.WinApp
         {
             controlador.Excluir();
         }
+
+
     }
 }

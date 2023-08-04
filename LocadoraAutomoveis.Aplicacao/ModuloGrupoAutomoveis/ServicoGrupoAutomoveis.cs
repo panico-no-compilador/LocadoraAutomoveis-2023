@@ -12,7 +12,7 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis
             this.validadorGrupoAutomoveis = validadorGrupoAutomoveis;
         }
 
-        private List<string> ValidarGrupoAutomoveis(GrupoAutomoveis grupoAutomoveis)
+        private List<string> ValidarGrupoAutomoveis(GrupoAutomovel grupoAutomoveis)
         {
             var resultadoValidacao = validadorGrupoAutomoveis.Validate(grupoAutomoveis);
 
@@ -32,9 +32,9 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis
             return erros;
         }
 
-        private bool NomeDuplicado(GrupoAutomoveis grupoAutomoveis)
+        private bool NomeDuplicado(GrupoAutomovel grupoAutomoveis)
         {
-            GrupoAutomoveis GrupoAutomoveisEncontrada = repositorioGrupoAutomoveis.SelecionarPorNome(grupoAutomoveis.Tipo);
+            GrupoAutomovel GrupoAutomoveisEncontrada = repositorioGrupoAutomoveis.SelecionarPorNome(grupoAutomoveis.Tipo);
 
             if (GrupoAutomoveisEncontrada != null &&
                 GrupoAutomoveisEncontrada.Id != grupoAutomoveis.Id &&
@@ -45,7 +45,7 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis
 
             return false;
         }
-        public Result Excluir(GrupoAutomoveis grupoAutomoveis)
+        public Result Excluir(GrupoAutomovel grupoAutomoveis)
         {
             Log.Debug("Tentando excluir GrupoAutomoveis...{@d}", grupoAutomoveis);
 
@@ -84,7 +84,7 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis
                 return Result.Fail(erros);
             }
         }
-        public Result Inserir(GrupoAutomoveis grupoAutomoveis)
+        public Result Inserir(GrupoAutomovel grupoAutomoveis)
         {
             Log.Debug("Tentando inserir grupo de automóveis...{@d}", grupoAutomoveis);
 
@@ -110,7 +110,7 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis
                 return Result.Fail(msgErro); //cenário 3
             }
         }
-        public Result Editar(GrupoAutomoveis grupoAutomoveis)
+        public Result Editar(GrupoAutomovel grupoAutomoveis)
         {
             Log.Debug("Tentando editar Grupo de Automoveis...{@d}", grupoAutomoveis);
 

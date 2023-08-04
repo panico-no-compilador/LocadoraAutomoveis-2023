@@ -2,9 +2,9 @@
 
 namespace LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis
 {
-    internal class MapeadorGrupoAutomoveisOrm : IEntityTypeConfiguration<GrupoAutomoveis>
+    internal class MapeadorGrupoAutomoveisOrm : IEntityTypeConfiguration<GrupoAutomovel>
     {
-        public void Configure(EntityTypeBuilder<GrupoAutomoveis> grupoAutomoveisBuilder)
+        public void Configure(EntityTypeBuilder<GrupoAutomovel> grupoAutomoveisBuilder)
         {
             grupoAutomoveisBuilder.ToTable("TBGrupoAutomoveis");
 
