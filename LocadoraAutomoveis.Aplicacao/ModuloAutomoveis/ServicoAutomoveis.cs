@@ -1,5 +1,6 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
+using System.Drawing.Drawing2D;
 
 namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
 {
@@ -41,6 +42,57 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
                 return Result.Fail(msgErro);
             }
         }
+        public Result Editar(Automovel automovel)
+        {
+            Log.Debug("Tentando editar automovel...{@m}", automovel);
+
+            List<string> erros = ValidarAutomoveis(automovel);
+
+            if (erros.Count() > 0)
+                return Result.Fail(erros);
+
+            try
+            {
+                repositorioAutomoveis.Editar(automovel);
+
+                Log.Debug("Automovel {AutomovelId} editada com sucesso", automovel.Id);
+
+                return Result.Ok();
+            }
+            catch (Exception exc)
+            {
+                string msgErro = "Falha ao tentar editar automovel.";
+
+                Log.Error(exc, msgErro + "{@m}", automovel);
+
+                return Result.Fail(msgErro);
+            }
+        }
+        public Result Excluir(Automovel materia)
+        {
+            Log.Debug("Tentando excluir automovel...{@m}", materia);
+
+            try
+            {
+                repositorioAutomoveis.Excluir(materia);
+
+                Log.Debug("Automovel {AutomovelId} editada com sucesso", materia.Id);
+
+                return Result.Ok();
+            }
+            catch (Exception ex)
+            {
+                List<string> erros = new List<string>();
+
+                string msgErro = ObterMensagemErro(ex);
+
+                erros.Add(msgErro);
+
+                Log.Logger.Error(ex, msgErro + " {AutomovelId}", materia.Id);
+
+                return Result.Fail(erros);
+            }
+        }
         private List<string> ValidarAutomoveis(Automovel automoveis)
         {
             var resultadoValidacao = validadorAutomoveis.Validate(automoveis);
@@ -60,7 +112,17 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
 
             return erros;
         }
+        private static string ObterMensagemErro(Exception ex)
+        {
+            string msgErro;
 
+            if (ex.Message.Contains("FK_TBAutomoveis_Aluguel"))
+                msgErro = "Este automovel está relacionada com um aluguel e não pode ser excluída";
+            else
+                msgErro = "Esta matéria não pode ser excluída";
+
+            return msgErro;
+        }
         private bool PlacaDuplicada(Automovel grupoAutomoveis)
         {
             Automovel GrupoAutomoveisEncontrada = repositorioAutomoveis.SelecionarPorPlaca(grupoAutomoveis.Placa);

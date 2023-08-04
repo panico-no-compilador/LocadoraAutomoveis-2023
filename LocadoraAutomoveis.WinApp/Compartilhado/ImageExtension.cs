@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentResults;
+using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -16,8 +17,7 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
 
             using MemoryStream ms = new();
 
-            image.Save(ms, ImageFormat.Jpeg);
-
+            image.Save(ms, ImageFormat.Png);
             return ms.ToArray();
         }
     }

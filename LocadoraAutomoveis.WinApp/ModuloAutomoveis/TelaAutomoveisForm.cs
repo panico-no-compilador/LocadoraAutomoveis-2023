@@ -3,6 +3,7 @@ using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using System.Collections;
+using System.Windows.Forms;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAutomoveis
 {
@@ -74,12 +75,14 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomoveis
         }
         private void btnBuscarFoto_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Arquivo JPEG|*.jpg";
             if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 string diretorio = openFileDialog1.FileName;
                 //string diretorio = folderBrowserDialog1.SelectedPath;
 
-                pictureBox1.Image = Image.FromFile(diretorio);
+                //pictureBox1.Image = Image.FromFile(diretorio);
+                pictureBox1.Image.Save(diretorio, System.Drawing.Imaging.ImageFormat.Jpeg);
             }
         }
 

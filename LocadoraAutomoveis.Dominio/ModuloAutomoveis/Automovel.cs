@@ -1,4 +1,10 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
+using System.Drawing;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Runtime.ConstrainedExecution;
+using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
 {
@@ -55,5 +61,14 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
                    Modelo == grupAuto.Modelo &&
                    Alugado == grupAuto.Alugado;
         }
+        //public byte[] ConverterImagemParaArrayBytes(System.Drawing.Image imagem)
+        //{
+        //    if (imagem == null)
+        //        return null;
+        //    using MemoryStream ms = new();
+
+        //    imagem.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+        //    return ms.ToArray();
+        //}
     }
 }
