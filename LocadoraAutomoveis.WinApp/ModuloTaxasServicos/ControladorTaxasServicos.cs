@@ -72,5 +72,31 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxasServicos
 
             TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
         }
+        public override void Editar()
+        {
+            Guid id = tabelaTaxasServicos.ObtemIdSelecionado();
+
+            TaxasServicos grupAutoSelecionado = repositorioTaxasServicos.SelecionarPorId(id);
+
+            if (grupAutoSelecionado == null)
+            {
+                MessageBox.Show("Selecione uma taxas de serviços primeiro",
+                "Edição de Taxas de Serviços", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            TelaTaxasServicosForm tela = new TelaTaxasServicosForm();
+
+            tela.onGravarRegistro += servicoTaxasServicos.Editar;
+
+            tela.ConfigurarGrupoAutomoveis(grupAutoSelecionado);
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                CarregarTaxasServicos();
+            }
+        }
     }
 }

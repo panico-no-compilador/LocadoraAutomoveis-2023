@@ -29,7 +29,7 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloTaxasServicos
             {
                 repositorioTaxasServicos.Inserir(taxasServicos);
 
-                Log.Debug("Taxa de Serviço {TaxaServiçoId} inserida com sucesso", taxasServicos.Id);
+                Log.Debug("Taxa de Serviço {TaxaServicoId} inserida com sucesso", taxasServicos.Id);
 
                 return Result.Ok(); //cenário 1
             }
@@ -40,6 +40,32 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloTaxasServicos
                 Log.Error(exc, msgErro + "{@d}", taxasServicos);
 
                 return Result.Fail(msgErro); //cenário 3
+            }
+        }
+        public Result Editar(TaxasServicos taxasServicos)
+        {
+            Log.Debug("Tentando editar Taxa de Serviço...{@d}", taxasServicos);
+
+            List<string> erros = ValidarTaxasServicos(taxasServicos);
+
+            if (erros.Count() > 0)
+                return Result.Fail(erros);
+
+            try
+            {
+                repositorioTaxasServicos.Editar(taxasServicos);
+
+                Log.Debug("Taxa de Serviço {TaxaServicoId} editada com sucesso", taxasServicos.Id);
+
+                return Result.Ok();
+            }
+            catch (Exception exc)
+            {
+                string msgErro = "Falha ao tentar editar Taxa de Serviço.";
+
+                Log.Error(exc, msgErro + "{@d}", taxasServicos);
+
+                return Result.Fail(msgErro);
             }
         }
         private List<string> ValidarTaxasServicos(TaxasServicos taxasServicos)
