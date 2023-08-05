@@ -33,11 +33,11 @@
             btnGravar = new Button();
             btnCancelar = new Button();
             label1 = new Label();
-            numericUpDown1 = new NumericUpDown();
+            txtPreco = new NumericUpDown();
             gboxPlanoCalculo = new GroupBox();
-            rbtnPrecoFixo = new RadioButton();
             rbtnCobrancaDiaria = new RadioButton();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            rbtnPrecoFixo = new RadioButton();
+            ((System.ComponentModel.ISupportInitialize)txtPreco).BeginInit();
             gboxPlanoCalculo.SuspendLayout();
             SuspendLayout();
             // 
@@ -87,15 +87,15 @@
             label1.TabIndex = 5;
             label1.Text = "Preço:";
             // 
-            // numericUpDown1
+            // txtPreco
             // 
-            numericUpDown1.DecimalPlaces = 2;
-            numericUpDown1.Location = new Point(85, 96);
-            numericUpDown1.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(120, 23);
-            numericUpDown1.TabIndex = 6;
-            numericUpDown1.TextAlign = HorizontalAlignment.Center;
+            txtPreco.DecimalPlaces = 2;
+            txtPreco.Location = new Point(85, 96);
+            txtPreco.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
+            txtPreco.Name = "txtPreco";
+            txtPreco.Size = new Size(120, 23);
+            txtPreco.TabIndex = 6;
+            txtPreco.TextAlign = HorizontalAlignment.Center;
             // 
             // gboxPlanoCalculo
             // 
@@ -108,17 +108,6 @@
             gboxPlanoCalculo.TabStop = false;
             gboxPlanoCalculo.Text = "Plano de Calculo";
             // 
-            // rbtnPrecoFixo
-            // 
-            rbtnPrecoFixo.AutoSize = true;
-            rbtnPrecoFixo.Location = new Point(19, 32);
-            rbtnPrecoFixo.Name = "rbtnPrecoFixo";
-            rbtnPrecoFixo.Size = new Size(80, 19);
-            rbtnPrecoFixo.TabIndex = 0;
-            rbtnPrecoFixo.TabStop = true;
-            rbtnPrecoFixo.Text = "Preço Fixo";
-            rbtnPrecoFixo.UseVisualStyleBackColor = true;
-            // 
             // rbtnCobrancaDiaria
             // 
             rbtnCobrancaDiaria.AutoSize = true;
@@ -129,6 +118,18 @@
             rbtnCobrancaDiaria.TabStop = true;
             rbtnCobrancaDiaria.Text = "Cobrança Diária";
             rbtnCobrancaDiaria.UseVisualStyleBackColor = true;
+            rbtnCobrancaDiaria.CheckedChanged += rbtnCobrancaDiaria_CheckedChanged;
+            // 
+            // rbtnPrecoFixo
+            // 
+            rbtnPrecoFixo.AutoSize = true;
+            rbtnPrecoFixo.Location = new Point(21, 32);
+            rbtnPrecoFixo.Name = "rbtnPrecoFixo";
+            rbtnPrecoFixo.Size = new Size(80, 19);
+            rbtnPrecoFixo.TabIndex = 0;
+            rbtnPrecoFixo.TabStop = true;
+            rbtnPrecoFixo.Text = "Preço Fixo";
+            rbtnPrecoFixo.UseVisualStyleBackColor = true;
             // 
             // TelaTaxasServicosForm
             // 
@@ -136,7 +137,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(356, 262);
             Controls.Add(gboxPlanoCalculo);
-            Controls.Add(numericUpDown1);
+            Controls.Add(txtPreco);
             Controls.Add(label1);
             Controls.Add(btnCancelar);
             Controls.Add(btnGravar);
@@ -144,7 +145,7 @@
             Controls.Add(label2);
             Name = "TelaTaxasServicosForm";
             Text = "Cadastro de Taxas de Serviços";
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtPreco).EndInit();
             gboxPlanoCalculo.ResumeLayout(false);
             gboxPlanoCalculo.PerformLayout();
             ResumeLayout(false);
@@ -157,9 +158,10 @@
         private Button btnGravar;
         private Button btnCancelar;
         private Label label1;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown txtPreco;
         private GroupBox gboxPlanoCalculo;
         private RadioButton rbtnPrecoFixo;
         private RadioButton rbtnCobrancaDiaria;
+        private RadioButton radioButton1;
     }
 }

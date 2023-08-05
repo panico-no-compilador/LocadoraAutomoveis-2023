@@ -1,6 +1,9 @@
-﻿using LocadoraAutomoveis.Aplicacao.ModuloTaxasServicos;
+﻿using LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Aplicacao.ModuloTaxasServicos;
+using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloTaxasServicos;
 using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis;
 using System.Drawing.Drawing2D;
 
 namespace LocadoraAutomoveis.WinApp.ModuloTaxasServicos
@@ -30,7 +33,18 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxasServicos
 
         public override void Inserir()
         {
-            throw new NotImplementedException();
+            TelaTaxasServicosForm tela = new TelaTaxasServicosForm();
+
+            tela.onGravarRegistro += servicoTaxasServicos.Inserir;
+
+            tela.ConfigurarGrupoAutomoveis(new TaxasServicos());
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                CarregarTaxasServicos();
+            }
         }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()

@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloTaxasServicos;
+﻿using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloTaxasServicos;
 
 namespace LocadoraAutomoveis.Aplicacao.ModuloTaxasServicos
 {
@@ -14,6 +15,32 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloTaxasServicos
         {
             this.repositorioTaxasServicos = repositorioTaxasServicos;
             this.validadorTaxasServicos = validadorTaxasServicos;
+        }
+        public Result Inserir(TaxasServicos taxasServicos)
+        {
+            Log.Debug("Tentando inserir taxa de serviço...{@d}", taxasServicos);
+
+            List<string> erros = ValidarTaxasServicos(taxasServicos);
+
+            if (erros.Count() > 0)
+                return Result.Fail(erros); //cenário 2
+
+            try
+            {
+                repositorioTaxasServicos.Inserir(taxasServicos);
+
+                Log.Debug("Taxa de Serviço {TaxaServiçoId} inserida com sucesso", taxasServicos.Id);
+
+                return Result.Ok(); //cenário 1
+            }
+            catch (Exception exc)
+            {
+                string msgErro = "Falha ao tentar inserir uma taxa de serviço.";
+
+                Log.Error(exc, msgErro + "{@d}", taxasServicos);
+
+                return Result.Fail(msgErro); //cenário 3
+            }
         }
         private List<string> ValidarTaxasServicos(TaxasServicos taxasServicos)
         {
