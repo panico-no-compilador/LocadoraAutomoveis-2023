@@ -28,7 +28,34 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxasServicos
 
         public override void Excluir()
         {
-            throw new NotImplementedException();
+            Guid id = tabelaTaxasServicos.ObtemIdSelecionado();
+
+            TaxasServicos taxasServicosSelecionada = repositorioTaxasServicos.SelecionarPorId(id);
+
+            if (taxasServicosSelecionada == null)
+            {
+                MessageBox.Show("Selecione um taxas de serviços primeiro",
+                "Exclusão de taxas de serviços", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            DialogResult opcaoEscolhida = MessageBox.Show($"Deseja realmente excluir o taxas de serviços {taxasServicosSelecionada.Nome}?",
+               "Exclusão de taxas de serviços", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (opcaoEscolhida == DialogResult.OK)
+            {
+                Result resultado = servicoTaxasServicos.Excluir(taxasServicosSelecionada);
+
+                if (resultado.IsFailed)
+                {
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de taxas de serviços",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
+                CarregarTaxasServicos();
+            }
         }
 
         public override void Inserir()

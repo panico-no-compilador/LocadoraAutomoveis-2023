@@ -61,7 +61,45 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloTaxasServicos
 
             return erros;
         }
+        public Result Excluir(TaxasServicos taxasServicos)
+        {
+            Log.Debug("Tentando excluir Taxa de Serviço...{@d}", taxasServicos);
 
+            try
+            {
+                bool GrupoAutomoveisExiste = repositorioTaxasServicos.Existe(taxasServicos);
+
+                if (GrupoAutomoveisExiste == false)
+                {
+                    Log.Warning("Taxa de Serviço {TaxaServicoId} não encontrada para excluir", taxasServicos.Id);
+
+                    return Result.Fail("GrupoAutomoveis não encontrada");
+                }
+
+                repositorioTaxasServicos.Excluir(taxasServicos);
+
+                Log.Debug("Taxa de Serviço {TaxaServicoId} excluída com sucesso", taxasServicos.Id);
+
+                return Result.Ok();
+            }
+            catch (SqlException ex)
+            {
+                List<string> erros = new List<string>();
+
+                string msgErro;
+
+                if (ex.Message.Contains("FK_TBGrupoAutomoveis"))
+                    msgErro = "Esta Taxa de Serviço está relacionada com uma e não pode ser excluída";
+                else
+                    msgErro = "Falha ao tentar excluir Taxa de Serviço";
+
+                erros.Add(msgErro);
+
+                Log.Error(ex, msgErro + " {TaxaServicoId}", taxasServicos.Id);
+
+                return Result.Fail(erros);
+            }
+        }
         private bool NomeDuplicado(TaxasServicos taxasServicos)
         {
             TaxasServicos TaxaServicoEncontrado = repositorioTaxasServicos.SelecionarPorNome(taxasServicos.Nome);
