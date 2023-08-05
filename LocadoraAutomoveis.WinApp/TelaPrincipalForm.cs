@@ -1,13 +1,17 @@
 using LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Aplicacao.ModuloPlanosCobranca;
+using LocadoraAutomoveis.Aplicacao.ModuloTaxasServicos;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobranca;
+using LocadoraAutomoveis.Dominio.ModuloTaxasServicos;
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloPlanosCobranca;
+using LocadoraAutomoveis.Infra.Orm.ModuloTaxasServicos;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.WinApp.ModuloPlanosCobranca;
+using LocadoraAutomoveis.WinApp.ModuloTaxasServicos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -57,15 +61,19 @@ namespace LocadoraAutomoveis.WinApp
 
             IRepositorioGrupoAutomoveis repositorioGrupoAutomoveis = new RepositorioGrupoAutomoveisOrm(dbContext);
             IRepositorioPlanoCobranca repositorioPlanoCobranca = new RepositorioPlanoCobrancaOrm(dbContext);
+            IRepositorioTaxasServicos repositorioTaxasServicos = new RepositorioTaxasServicos(dbContext);
 
             ValidadorGrupoAutomoveis validationRules = new ValidadorGrupoAutomoveis();
             ValidadorPlanoCobranca validationRules1 = new ValidadorPlanoCobranca();
+            ValidadorTaxasServicos validationRules2 = new ValidadorTaxasServicos();
 
             ServicoGrupoAutomoveis servicoGrupoAutomoveis = new ServicoGrupoAutomoveis(repositorioGrupoAutomoveis, validationRules);
             ServicoPlanoCobranca servicoPlanoCobranca = new ServicoPlanoCobranca(repositorioPlanoCobranca, validationRules1);
+            ServicoTaxasServicos servicoTaxasServicos = new ServicoTaxasServicos(repositorioTaxasServicos, validationRules2);
 
             controladores.Add("ControladorGrupoAutomoveis", new ControladorGrupoAutomoveis(repositorioGrupoAutomoveis, servicoGrupoAutomoveis));
             controladores.Add("ControladorPlanoCobranca", new ControladorPlanoCobranca(repositorioGrupoAutomoveis, repositorioPlanoCobranca, servicoPlanoCobranca));
+            controladores.Add("ControladorTaxasServicos", new ControladorTaxasServicos(repositorioTaxasServicos, validationRules2, servicoTaxasServicos));
         }
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
         {
@@ -93,6 +101,10 @@ namespace LocadoraAutomoveis.WinApp
         private void planosECobrançasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal(controladores["ControladorPlanoCobranca"]);
+        }
+        private void taxasEServiçosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(controladores["ControladorTaxasServicos"]);
         }
         private void ConfigurarTelaPrincipal(ControladorBase controladorBase)
         {
@@ -148,7 +160,5 @@ namespace LocadoraAutomoveis.WinApp
         {
             controlador.Excluir();
         }
-
-
     }
 }

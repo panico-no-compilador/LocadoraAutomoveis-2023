@@ -150,6 +150,7 @@
             taxasEServiçosToolStripMenuItem.ShortcutKeys = Keys.F10;
             taxasEServiçosToolStripMenuItem.Size = new Size(203, 22);
             taxasEServiçosToolStripMenuItem.Text = "Taxas e Serviços";
+            taxasEServiçosToolStripMenuItem.Click += taxasEServiçosToolStripMenuItem_Click;
             // 
             // toolbox
             // 
