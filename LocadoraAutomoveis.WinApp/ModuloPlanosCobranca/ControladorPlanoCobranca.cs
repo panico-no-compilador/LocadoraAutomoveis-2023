@@ -29,11 +29,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
             this.servicoPlano = servicoPlano;
         }
 
-        public override void Excluir()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Inserir()
         {
             List<GrupoAutomovel> listGrupoAutomoveis = _repositorioGrupo.SelecionarTodos();
@@ -100,6 +95,36 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
 
             if (resultado == DialogResult.OK)
             {
+                CarregarPlanoCobranca();
+            }
+        }
+        public override void Excluir()
+        {
+            Guid id = tabelaPlanoCobranca.ObtemIdSelecionado();
+
+            PlanoCobranca planoSelecionado = _repositorioPlano.SelecionarPorId(id);
+
+            if (planoSelecionado == null)
+            {
+                MessageBox.Show("Selecione um plano de cobrança primeiro",
+                "Exclusão de Plano de Cobranças", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            DialogResult opcaoEscolhida = MessageBox.Show("Deseja realmente excluir um plano de cobrança?",
+               "Exclusão de Plano de Cobranças", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (opcaoEscolhida == DialogResult.OK)
+            {
+                Result resultado = servicoPlano.Excluir(planoSelecionado);
+
+                if (resultado.IsFailed)
+                {
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Plano de Cobranças", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
                 CarregarPlanoCobranca();
             }
         }

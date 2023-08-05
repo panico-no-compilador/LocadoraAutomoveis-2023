@@ -100,5 +100,41 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloPlanosCobranca
                 return Result.Fail(msgErro);
             }
         }
+        public Result Excluir(PlanoCobranca planoCobranca)
+        {
+            Log.Debug("Tentando excluir plano de cobrança...{@m}", planoCobranca);
+
+            try
+            {
+                repositorioPlanoCobranca.Excluir(planoCobranca);
+
+                Log.Debug("Plano de Cobrança {PlanoCobrancaId} editada com sucesso", planoCobranca.Id);
+
+                return Result.Ok();
+            }
+            catch (Exception ex)
+            {
+                List<string> erros = new List<string>();
+
+                string msgErro = ObterMensagemErro(ex);
+
+                erros.Add(msgErro);
+
+                Log.Logger.Error(ex, msgErro + " {PlanoCobrancaId}", planoCobranca.Id);
+
+                return Result.Fail(erros);
+            }
+        }
+        private static string ObterMensagemErro(Exception ex)
+        {
+            string msgErro;
+
+            if (ex.Message.Contains("FK_TBAutomoveis_Aluguel"))
+                msgErro = "Este plano de cobrança está relacionada com um aluguel e não pode ser excluída";
+            else
+                msgErro = "Este plano de cobrança não pode ser excluído";
+
+            return msgErro;
+        }
     }
 }
