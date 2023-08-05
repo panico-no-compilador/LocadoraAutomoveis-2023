@@ -74,5 +74,31 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloPlanosCobranca
 
             return false;
         }
+        public Result Editar(PlanoCobranca planoCobranca)
+        {
+            Log.Debug("Tentando editar plano de cobrança...{@m}", planoCobranca);
+
+            List<string> erros = ValidarPlanoCobranca(planoCobranca);
+
+            if (erros.Count() > 0)
+                return Result.Fail(erros);
+
+            try
+            {
+                repositorioPlanoCobranca.Editar(planoCobranca);
+
+                Log.Debug("Plano de Cobrança {PlanoCobrancaId} editada com sucesso", planoCobranca.Id);
+
+                return Result.Ok();
+            }
+            catch (Exception exc)
+            {
+                string msgErro = "Falha ao tentar editar plano de cobrança.";
+
+                Log.Error(exc, msgErro + "{@m}", planoCobranca);
+
+                return Result.Fail(msgErro);
+            }
+        }
     }
 }

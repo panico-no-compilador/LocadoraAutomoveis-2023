@@ -67,13 +67,41 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
         }
         private void CarregarPlanoCobranca()
         {
-            List<PlanoCobranca> planosCobrancaList = _repositorioPlano.SelecionarTodos();
+            List<PlanoCobranca> planosCobrancaList = _repositorioPlano.SelecionarTodos(incluirCategoriaGrupAuto : true);
 
             tabelaPlanoCobranca.AtualizarRegistros(planosCobrancaList);
 
             mensagemRodape = string.Format("Visualizando {0} Plano{1} de Cobrança{1}", planosCobrancaList.Count, planosCobrancaList.Count == 1 ? "" : "s");
 
             TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
+        }
+        public override void Editar()
+        {
+            Guid id = tabelaPlanoCobranca.ObtemIdSelecionado();
+
+            PlanoCobranca automovelSelecionado = _repositorioPlano.SelecionarPorId(id);
+
+            if (automovelSelecionado == null)
+            {
+                MessageBox.Show("Selecione uma plano cobrança primeiro",
+                "Edição de Plano Automoveis", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            List<GrupoAutomovel> grupoAutomoveis = _repositorioGrupo.SelecionarTodos();
+
+            TelaPlanoCobrancaForm tela = new TelaPlanoCobrancaForm(grupoAutomoveis);
+
+            tela.onGravarRegistro += servicoPlano.Editar;
+
+            tela.ConfigurarPlanoCobranca(automovelSelecionado);
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                CarregarPlanoCobranca();
+            }
         }
     }
 }
