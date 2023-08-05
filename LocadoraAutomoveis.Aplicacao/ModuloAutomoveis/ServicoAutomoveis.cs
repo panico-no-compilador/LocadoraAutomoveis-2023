@@ -68,15 +68,15 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
                 return Result.Fail(msgErro);
             }
         }
-        public Result Excluir(Automovel materia)
+        public Result Excluir(Automovel automovel)
         {
-            Log.Debug("Tentando excluir automovel...{@m}", materia);
+            Log.Debug("Tentando excluir automovel...{@m}", automovel);
 
             try
             {
-                repositorioAutomoveis.Excluir(materia);
+                repositorioAutomoveis.Excluir(automovel);
 
-                Log.Debug("Automovel {AutomovelId} editada com sucesso", materia.Id);
+                Log.Debug("Automovel {AutomovelId} editada com sucesso", automovel.Id);
 
                 return Result.Ok();
             }
@@ -88,7 +88,7 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
 
                 erros.Add(msgErro);
 
-                Log.Logger.Error(ex, msgErro + " {AutomovelId}", materia.Id);
+                Log.Logger.Error(ex, msgErro + " {AutomovelId}", automovel.Id);
 
                 return Result.Fail(erros);
             }
@@ -119,7 +119,7 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
             if (ex.Message.Contains("FK_TBAutomoveis_Aluguel"))
                 msgErro = "Este automovel está relacionada com um aluguel e não pode ser excluída";
             else
-                msgErro = "Esta matéria não pode ser excluída";
+                msgErro = "Este automovel não pode ser excluída";
 
             return msgErro;
         }
