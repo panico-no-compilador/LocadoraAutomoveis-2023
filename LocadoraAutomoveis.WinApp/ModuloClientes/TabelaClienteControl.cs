@@ -2,7 +2,7 @@
 
 using LocadoraAutomoveis.Dominio.ModuloClientes;
 using LocadoraAutomoveis.Dominio.ModuloCuponsParceiros;
-using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.Compartilhado.Extensoes;
 
 namespace LocadoraAutomoveis.WinApp.ModuloClientes
 {

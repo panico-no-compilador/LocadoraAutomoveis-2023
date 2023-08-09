@@ -22,6 +22,56 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Alugado")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Ano")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CategoriaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Combustivel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cor")
+                        .IsRequired()
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<byte[]>("Imagem")
+                        .IsRequired()
+                        .HasColumnType("varbinary(MAX)");
+
+                    b.Property<string>("Marca")
+                        .IsRequired()
+                        .HasColumnType("varchar(25)");
+
+                    b.Property<string>("Modelo")
+                        .IsRequired()
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Placa")
+                        .IsRequired()
+                        .HasColumnType("varchar(8)");
+
+                    b.Property<int>("QntdCombustivel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quilometragem")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.ToTable("TBAutomovel", (string)null);
+                });
+
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCuponsParceiros.Cupom", b =>
                 {
                     b.Property<Guid>("Id")
@@ -122,6 +172,18 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                     b.ToTable("TBTaxasServicos", (string)null);
                 });
 
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
+                {
+                    b.HasOne("LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis.GrupoAutomovel", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_Automovel_GrupoAutomoveis");
+
+                    b.Navigation("Categoria");
+                });
+
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCuponsParceiros.Cupom", b =>
                 {
                     b.HasOne("LocadoraAutomoveis.Dominio.ModuloCuponsParceiros.Parceiro", "Parceiro")
@@ -150,67 +212,6 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                 {
                     b.Navigation("Cupoms");
                 });
-
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
-            {
-                b.HasOne("LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis.GrupoAutomovel", "Categoria")
-                    .WithMany()
-                    .HasForeignKey("CategoriaId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired()
-                    .HasConstraintName("FK_Automovel_GrupoAutomoveis");
-
-                b.Navigation("Categoria");
-            });
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
-            {
-                b.Property<Guid>("Id")
-                    .HasColumnType("uniqueidentifier");
-
-                b.Property<bool>("Alugado")
-                    .HasColumnType("bit");
-
-                b.Property<int>("Ano")
-                    .HasColumnType("int");
-
-                b.Property<Guid>("CategoriaId")
-                    .HasColumnType("uniqueidentifier");
-
-                b.Property<int>("Combustivel")
-                    .HasColumnType("int");
-
-                b.Property<string>("Cor")
-                    .IsRequired()
-                    .HasColumnType("varchar(30)");
-
-                b.Property<byte[]>("Imagem")
-                    .IsRequired()
-                    .HasColumnType("varbinary(MAX)");
-
-                b.Property<string>("Marca")
-                    .IsRequired()
-                    .HasColumnType("varchar(25)");
-
-                b.Property<string>("Modelo")
-                    .IsRequired()
-                    .HasColumnType("varchar(45)");
-
-                b.Property<string>("Placa")
-                    .IsRequired()
-                    .HasColumnType("varchar(8)");
-
-                b.Property<int>("QntdCombustivel")
-                    .HasColumnType("int");
-
-                b.Property<int>("Quilometragem")
-                    .HasColumnType("int");
-
-                b.HasKey("Id");
-
-                b.HasIndex("CategoriaId");
-
-                b.ToTable("TBAutomovel", (string)null);
-            });
 #pragma warning restore 612, 618
         }
     }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LocadoraAutomoveis.Dominio.ModuloClientes
+﻿namespace LocadoraAutomoveis.Dominio.ModuloClientes
 {
-    public class ValidadorCliente : AbstractValidator<Cliente>
+    public class ValidadorCliente : AbstractValidator<Cliente>, IValidadorCliente
     {
         public ValidadorCliente() 
         {

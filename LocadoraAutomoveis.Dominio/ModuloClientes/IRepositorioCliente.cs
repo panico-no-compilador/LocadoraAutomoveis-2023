@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloCuponsParceiros;
+﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+using LocadoraAutomoveis.Dominio.ModuloCuponsParceiros;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,31 +1,9 @@
-using LocadoraAutomoveis.Aplicacao.ModuloAutomoveis;
-using LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis;
-using LocadoraAutomoveis.Aplicacao.ModuloPlanosCobranca;
-using LocadoraAutomoveis.Aplicacao.ModuloTaxasServicos;
-using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
-using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
-using LocadoraAutomoveis.Dominio.ModuloPlanosCobranca;
-using LocadoraAutomoveis.Dominio.ModuloTaxasServicos;
-using LocadoraAutomoveis.Infra.Orm.Compartilhado;
-using LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
-using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
-using LocadoraAutomoveis.Infra.Orm.ModuloPlanosCobranca;
-using LocadoraAutomoveis.Infra.Orm.ModuloTaxasServicos;
 using LocadoraAutomoveis.WinApp.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloCuponsParceiros;
 using LocadoraAutomoveis.WinApp.ModuloAutomoveis;
 using LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.WinApp.ModuloPlanosCobranca;
 using LocadoraAutomoveis.WinApp.ModuloTaxasServicos;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using LocadoraAutomoveis.WinApp.ModuloCuponsParceiros;
-using LocadoraAutomoveis.Infra.Orm.ModuloCuponsParceiros;
-using LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros;
-using LocadoraAutomoveis.WinApp.ModuloCuponsParceiros;
-using LocadoraAutomoveis.Dominio.ModuloClientes;
-using LocadoraAutomoveis.Infra.Orm.ModuloClientes;
-using LocadoraAutomoveis.Aplicacao.ModuloClientes;
 using LocadoraAutomoveis.WinApp.ModuloClientes;
 
 namespace LocadoraAutomoveis.WinApp
@@ -36,6 +14,8 @@ namespace LocadoraAutomoveis.WinApp
 
         private ControladorBase controlador;
 
+        private IInversaoControle IoC;
+
         public TelaPrincipalForm()
         {
             InitializeComponent();
@@ -43,7 +23,7 @@ namespace LocadoraAutomoveis.WinApp
             labelRodape.Text = string.Empty;
             labelTipoCadastro.Text = string.Empty;
             controladores = new Dictionary<string, ControladorBase>();
-            ConfigurarControladores();
+            IoC = new InversaoControle();
         }
         public static TelaPrincipalForm Instancia
         {
@@ -58,51 +38,6 @@ namespace LocadoraAutomoveis.WinApp
             AtualizarRodape(mensagemRodape);
         }
 
-        private void ConfigurarControladores()
-        {
-            //instancia do servico, repositorio, validador || controladores.Add()
-            var configuracao = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.json")
-               .Build();
-            var connectionString = configuracao.GetConnectionString("SqlServer");
-            var optionsBuilder = new DbContextOptionsBuilder<LocadoraAutomoveisDbContext>();
-            optionsBuilder.UseSqlServer(connectionString);
-            var dbContext = new LocadoraAutomoveisDbContext(optionsBuilder.Options);
-
-            IRepositorioGrupoAutomoveis repositorioGrupoAutomoveis = new RepositorioGrupoAutomoveisOrm(dbContext);
-            IRepositorioPlanoCobranca repositorioPlanoCobranca = new RepositorioPlanoCobrancaOrm(dbContext);
-            IRepositorioTaxasServicos repositorioTaxasServicos = new RepositorioTaxasServicos(dbContext);
-            IRepositorioParceiro repositorioParceiro = new RepositorioParceiroEmOrm(dbContext);
-            IRepositorioCupom repositorioCupom = new RepositorioCupomEmOrm(dbContext);
-            IRepositorioAutomoveis repositorioAutomoveis = new RepositorioAutomoveisOrm(dbContext);
-            IRepositorioCliente repositorioCliente = new RepositorioClienteEmOrm(dbContext);
-
-
-            ValidadorGrupoAutomoveis validadorGrupoAutomoveis = new ValidadorGrupoAutomoveis();
-            ValidadorPlanoCobranca validadorPlanoCobranca = new ValidadorPlanoCobranca();
-            ValidadorTaxasServicos validadorTaxasServicos = new ValidadorTaxasServicos();
-            ValidadorParceiro validadorParceiro = new ValidadorParceiro();
-            ValidadorCupom validadorCupom = new ValidadorCupom();
-            ValidadorAutomoveis validadorAutomoveis = new ValidadorAutomoveis();
-            ValidadorCliente validadorCliente = new ValidadorCliente();
-
-            ServicoGrupoAutomoveis servicoGrupoAutomoveis = new ServicoGrupoAutomoveis(repositorioGrupoAutomoveis, validadorGrupoAutomoveis);
-            ServicoPlanoCobranca servicoPlanoCobranca = new ServicoPlanoCobranca(repositorioPlanoCobranca, validadorPlanoCobranca);
-            ServicoTaxasServicos servicoTaxasServicos = new ServicoTaxasServicos(repositorioTaxasServicos, validadorTaxasServicos);
-            ServicoParceiro servicoParceiro = new ServicoParceiro(repositorioParceiro, validadorParceiro);
-            ServicoCupom servicoCupom = new ServicoCupom(repositorioCupom, validadorCupom);
-            ServicoAutomoveis servicoAutomoveis = new ServicoAutomoveis(repositorioAutomoveis, validadorAutomoveis);
-            ServicoCliente servicoCliente = new ServicoCliente(repositorioCliente, validadorCliente);
-
-            controladores.Add("ControladorGrupoAutomoveis", new ControladorGrupoAutomoveis(repositorioGrupoAutomoveis, servicoGrupoAutomoveis));
-            controladores.Add("ControladorPlanoCobranca", new ControladorPlanoCobranca(repositorioGrupoAutomoveis, repositorioPlanoCobranca, servicoPlanoCobranca));
-            controladores.Add("ControladorTaxasServicos", new ControladorTaxasServicos(repositorioTaxasServicos, validadorTaxasServicos, servicoTaxasServicos));
-            controladores.Add("ControladorParceiro", new ControladorParceiro(repositorioParceiro, servicoParceiro));
-            controladores.Add("ControladorCliente", new ControlardorCliente(repositorioCliente, servicoCliente));
-            controladores.Add("ControladorCupom", new ControladorCupom(repositorioCupom, repositorioParceiro, servicoCupom));
-            controladores.Add("ControladorAutomoveis", new ControladorAutomoveis(repositorioAutomoveis, repositorioGrupoAutomoveis, servicoAutomoveis));
-        }
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
         {
             btnInserir.Enabled = configuracao.InserirHabilitado;
@@ -123,32 +58,32 @@ namespace LocadoraAutomoveis.WinApp
         }
         private void materiasMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(controladores["ControladorAutomoveis"]);
+            ConfigurarTelaPrincipal(IoC.Get<ControladorAutomoveis>());
         }
 
         private void grupoDeAutoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(controladores["ControladorGrupoAutomoveis"]);
+            ConfigurarTelaPrincipal(IoC.Get<ControladorGrupoAutomoveis>());
         }
         private void planosECobrançasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(controladores["ControladorPlanoCobranca"]);
+            ConfigurarTelaPrincipal(IoC.Get<ControladorPlanoCobranca>());
         }
         private void taxasEServiçosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(controladores["ControladorTaxasServicos"]);
+            ConfigurarTelaPrincipal(IoC.Get<ControladorTaxasServicos>());
         }
         private void cuponsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(controladores["ControladorCupom"]);
+            ConfigurarTelaPrincipal(IoC.Get<ControladorCupom>());
         }
         private void cuponsParceirosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(controladores["ControladorParceiro"]);
+            ConfigurarTelaPrincipal(IoC.Get<ControladorParceiro>());
         }
         private void ClientesMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(controladores["ControladorCliente"]);
+            ConfigurarTelaPrincipal(IoC.Get<ControlardorCliente>());
         }
         private void ConfigurarTelaPrincipal(ControladorBase controladorBase)
         {

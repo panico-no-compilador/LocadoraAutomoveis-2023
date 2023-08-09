@@ -1,4 +1,4 @@
-﻿namespace LocadoraAutomoveis.WinApp.Compartilhado
+﻿namespace LocadoraAutomoveis.WinApp.Compartilhado.Extensoes
 {
     public static class FormExtensions
     {

@@ -1,6 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
-using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
-using System.Drawing.Drawing2D;
+﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 
 namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
 {
@@ -8,87 +7,114 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
     {
         IRepositorioAutomoveis repositorioAutomoveis;
         IValidadorAutomoveis validadorAutomoveis;
-
+        IContextoPersistencia contextoPersistencia;
         public ServicoAutomoveis(
             IRepositorioAutomoveis repositorioAutomoveis,
-            IValidadorAutomoveis validadorAutomoveis)
+            IValidadorAutomoveis validadorAutomoveis,
+            IContextoPersistencia contextoPersistencia
+            )
         {
             this.repositorioAutomoveis = repositorioAutomoveis;
             this.validadorAutomoveis = validadorAutomoveis;
+            this.contextoPersistencia = contextoPersistencia;
         }
+
         public Result Inserir(Automovel automovel)
         {
-            Log.Debug("Tentando inserir o automovel...{@m}", automovel);
+            Log.Debug("Tentando inserir um automóvel...{@m}", automovel);
 
             List<string> erros = ValidarAutomoveis(automovel);
 
             if (erros.Count() > 0)
+            {
+                contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail(erros);
+            }
 
             try
             {
                 repositorioAutomoveis.Inserir(automovel);
 
-                Log.Debug("Automovel {AutomovelId} inserida com sucesso", automovel.Id);
+                contextoPersistencia.GravarDados();
+
+                Log.Debug("Automóvel {AutomovelId} inserido com sucesso", automovel.Id);
 
                 return Result.Ok();
             }
             catch (Exception exc)
             {
-                string msgErro = "Falha ao tentar inserir o automovel.";
+                string msgErro = "Falha ao tentar inserir um automóvel.";
 
-                Log.Error(exc, msgErro + "{@m}", automovel);
+                Log.Error(exc, msgErro + "{@a}", automovel);
 
                 return Result.Fail(msgErro);
             }
         }
         public Result Editar(Automovel automovel)
         {
-            Log.Debug("Tentando editar automovel...{@m}", automovel);
+            Log.Debug("Tentando editar automovel...{@a}", automovel);
 
             List<string> erros = ValidarAutomoveis(automovel);
 
             if (erros.Count() > 0)
+            {
+                contextoPersistencia.DesfazerAlteracoes();
+                
                 return Result.Fail(erros);
+            }
 
             try
             {
                 repositorioAutomoveis.Editar(automovel);
 
-                Log.Debug("Automovel {AutomovelId} editada com sucesso", automovel.Id);
+                contextoPersistencia.GravarDados();
+
+                Log.Debug("Automóvel {AutomovelId} editado com sucesso", automovel.Id);
 
                 return Result.Ok();
             }
             catch (Exception exc)
             {
-                string msgErro = "Falha ao tentar editar automovel.";
+                string msgErro = "Falha ao tentar editar um automóvel.";
 
-                Log.Error(exc, msgErro + "{@m}", automovel);
+                Log.Error(exc, msgErro + "{@a}", automovel);
 
                 return Result.Fail(msgErro);
             }
         }
-        public Result Excluir(Automovel materia)
+        public Result Excluir(Automovel automovel)
         {
-            Log.Debug("Tentando excluir automovel...{@m}", materia);
+            Log.Debug("Tentando excluir automóvel...{@a}", automovel);
 
             try
             {
-                repositorioAutomoveis.Excluir(materia);
+                bool automovelExiste = repositorioAutomoveis.Existe(automovel);
+                if (automovelExiste)
+                {
+                    Log.Warning("Automóvel {AutomovelId} não encontrado para excluir", automovel.Id);
 
-                Log.Debug("Automovel {AutomovelId} editada com sucesso", materia.Id);
+                    return Result.Fail("Automóvel não encontrado");
+                }
+                repositorioAutomoveis.Excluir(automovel);
+
+                contextoPersistencia.GravarDados();
+
+                Log.Debug("Automovel {AutomovelId} excluido com sucesso", automovel.Id);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
+                contextoPersistencia.DesfazerAlteracoes();
+
                 List<string> erros = new List<string>();
 
                 string msgErro = ObterMensagemErro(ex);
 
                 erros.Add(msgErro);
 
-                Log.Logger.Error(ex, msgErro + " {AutomovelId}", materia.Id);
+                Log.Error(ex, msgErro + " {AutomovelId}", automovel.Id);
 
                 return Result.Fail(erros);
             }
@@ -119,7 +145,7 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloAutomoveis
             if (ex.Message.Contains("FK_TBAutomoveis_Aluguel"))
                 msgErro = "Este automovel está relacionada com um aluguel e não pode ser excluída";
             else
-                msgErro = "Esta matéria não pode ser excluída";
+                msgErro = "Este automóvel não pode ser excluído";
 
             return msgErro;
         }

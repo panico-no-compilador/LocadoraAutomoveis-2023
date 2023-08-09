@@ -4,9 +4,9 @@ using LocadoraAutomoveis.Dominio.ModuloTaxasServicos;
 
 namespace LocadoraAutomoveis.Infra.Orm.ModuloTaxasServicos
 {
-    public class RepositorioTaxasServicos : RepositorioBaseEmOrm<TaxasServicos>, IRepositorioTaxasServicos
+    public class RepositorioTaxasServicosOrm : RepositorioBaseEmOrm<TaxasServicos>, IRepositorioTaxasServicos
     {
-        public RepositorioTaxasServicos(LocadoraAutomoveisDbContext dbContext) : base(dbContext)
+        public RepositorioTaxasServicosOrm(LocadoraAutomoveisDbContext dbContext) : base(dbContext)
         {
         }
 

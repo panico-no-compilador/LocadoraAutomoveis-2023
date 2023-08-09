@@ -2,15 +2,15 @@
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.Compartilhado.Extensoes;
 using System.Collections;
-using System.Windows.Forms;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAutomoveis
 {
     public partial class TelaAutomoveisForm : Form
     {
         private Automovel automovel;
-        public Automovel teste;
+
         public event GravarRegistroDelegate<Automovel> onGravarRegistro;
         public TelaAutomoveisForm(List<GrupoAutomovel> grupoAutomoveis)
         {

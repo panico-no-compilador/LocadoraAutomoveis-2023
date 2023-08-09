@@ -1,38 +1,45 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloCuponsParceiros;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+using LocadoraAutomoveis.Dominio.ModuloCuponsParceiros;
 
 namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
 {
     public class ServicoCupom
     {
         private IRepositorioCupom repositorioCupom;
+        private IContextoPersistencia contextoPersistencia;
         private ValidadorCupom validadorCupom;
 
-
-        public ServicoCupom(IRepositorioCupom repositorioCupom,ValidadorCupom validadorCupom)
+        public ServicoCupom(
+            IRepositorioCupom repositorioCupom,
+            IContextoPersistencia contextoPersistencia,
+            ValidadorCupom validadorCupom
+            )
         {
             this.repositorioCupom = repositorioCupom;
+            this.contextoPersistencia = contextoPersistencia;
             this.validadorCupom = validadorCupom;
         }
 
         public Result Editar(Cupom cupom)
         {
-            Log.Debug("Tentando editar cupom...{@d}", cupom);
+            Log.Debug("Tentando editar cupom...{@c}", cupom);
 
             List<string> erros = ValidarCupom(cupom);
 
             if (erros.Count() > 0)
+            {
+                contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail(erros);
+            }
 
             try
             {
                 repositorioCupom.Editar(cupom);
+                
+                contextoPersistencia.GravarDados();
 
-                Log.Debug("cupom {cupomId} editada com sucesso", cupom.Id);
+                Log.Debug("Cupom {CupomId} editada com sucesso", cupom.Id);
 
                 return Result.Ok();
             }
@@ -48,18 +55,24 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
 
         public Result Inserir(Cupom cupom)
         {
-            Log.Debug("Tentando inserir cupom...{@d}", cupom);
+            Log.Debug("Tentando inserir cupom...{@c}", cupom);
 
             List<string> erros = ValidarCupom(cupom);
 
             if (erros.Count() > 0)
+            {
+                contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail(erros); //cenário 2
+            }
 
             try
             {
                 repositorioCupom.Inserir(cupom);
 
-                Log.Debug("cupom {cupomId} inserida com sucesso", cupom.Id);
+                contextoPersistencia.GravarDados();
+
+                Log.Debug("Cupom {CupomId} inserida com sucesso", cupom.Id);
 
                 return Result.Ok(); //cenário 1
             }
@@ -67,14 +80,14 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
             {
                 string msgErro = "Falha ao tentar inserir cupom.";
 
-                Log.Error(exc, msgErro + "{@d}", cupom);
+                Log.Error(exc, msgErro + "{@c}", cupom);
 
                 return Result.Fail(msgErro); //cenário 3
             }
         }
         public Result Excluir(Cupom cupom)
         {
-            Log.Debug("Tentando excluir cupom...{@d}", cupom);
+            Log.Debug("Tentando excluir cupom...{@c}", cupom);
 
             try
             {
@@ -82,29 +95,32 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
 
                 if (cupomExiste == false)
                 {
-                    Log.Warning("cupom {cupomId} não encontrada para excluir", cupom.Id);
+                    Log.Warning("Cupom {CupomId} não encontrada para excluir", cupom.Id);
 
                     return Result.Fail("cupom não encontrada");
                 }
 
                 repositorioCupom.Excluir(cupom);
 
-                Log.Debug("cupom {cupomId} excluída com sucesso", cupom.Id);
+                contextoPersistencia.GravarDados();
+
+                Log.Debug("Cupom {CupomId} excluída com sucesso", cupom.Id);
 
                 return Result.Ok();
             }
             catch (SqlException ex)
             {
+                contextoPersistencia.DesfazerAlteracoes();
+
                 List<string> erros = new List<string>();
 
                 string msgErro;
-
                 
-                    msgErro = "Falha ao tentar excluir cupom";
+                msgErro = "Falha ao tentar excluir cupom";
                    
                 erros.Add(msgErro);
 
-                Log.Error(ex, msgErro + " {cupomId}", cupom.Id);
+                Log.Error(ex, msgErro + " {CupomId}", cupom.Id);
 
                 return Result.Fail(erros);
             }

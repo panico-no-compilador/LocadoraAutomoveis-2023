@@ -1,10 +1,4 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloCuponsParceiros;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocadoraAutomoveis.Dominio.ModuloClientes
 {
@@ -43,7 +37,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloClientes
         }
         public override string ToString()
         {
-            return string.Format("{0}, {1}", Nome, TipoPessoa.GetDescripton());
+            return string.Format("{0}, {1}", Nome, TipoPessoa.GetDescription());
         }
         public override int GetHashCode()
         {

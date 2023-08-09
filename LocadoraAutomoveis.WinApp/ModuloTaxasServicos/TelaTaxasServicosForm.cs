@@ -1,5 +1,6 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloTaxasServicos;
 using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.Compartilhado.Extensoes;
 
 namespace LocadoraAutomoveis.WinApp.ModuloTaxasServicos
 {
@@ -13,7 +14,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxasServicos
             InitializeComponent();
             this.ConfigurarDialog();
         }
-        internal void ConfigurarGrupoAutomoveis(TaxasServicos taxasServicos)
+        internal void ConfigurarTaxaServicos(TaxasServicos taxasServicos)
         {
             this.taxasServicos = taxasServicos;
             txtNome.Text = taxasServicos.Nome;

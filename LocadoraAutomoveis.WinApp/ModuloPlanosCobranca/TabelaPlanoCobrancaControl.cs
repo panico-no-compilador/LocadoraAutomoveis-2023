@@ -1,5 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloPlanosCobranca;
-using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.Compartilhado.Extensoes;
 
 namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
 {

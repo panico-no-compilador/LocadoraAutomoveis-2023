@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LocadoraAutomoveis.Infra.Orm.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrationMarge : Migration
+    public partial class teste : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,14 +50,41 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TBAutomovel",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Cor = table.Column<string>(type: "varchar(30)", nullable: false),
+                    Combustivel = table.Column<int>(type: "int", nullable: false),
+                    Placa = table.Column<string>(type: "varchar(8)", nullable: false),
+                    QntdCombustivel = table.Column<int>(type: "int", nullable: false),
+                    Quilometragem = table.Column<int>(type: "int", nullable: false),
+                    Marca = table.Column<string>(type: "varchar(25)", nullable: false),
+                    Modelo = table.Column<string>(type: "varchar(45)", nullable: false),
+                    Imagem = table.Column<byte[]>(type: "varbinary(MAX)", nullable: false),
+                    Alugado = table.Column<bool>(type: "bit", nullable: false),
+                    Ano = table.Column<int>(type: "int", nullable: false),
+                    CategoriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBAutomovel", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Automovel_GrupoAutomoveis",
+                        column: x => x.CategoriaId,
+                        principalTable: "TBGrupoAutomoveis",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TBPlanoCobranca",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoriaGrupAutoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TipoPlano = table.Column<int>(type: "int", nullable: false),
-                    PrecoDiaria = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PrecoKm = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PrecoDiaria = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    PrecoKm = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     KmDisponiveis = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -91,6 +118,11 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_TBAutomovel_CategoriaId",
+                table: "TBAutomovel",
+                column: "CategoriaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TBCupom_ParceiroId",
                 table: "TBCupom",
                 column: "ParceiroId");
@@ -104,6 +136,9 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TBAutomovel");
+
             migrationBuilder.DropTable(
                 name: "TBCupom");
 

@@ -1,10 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.Compartilhado;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LocadoraAutomoveis.Dominio.Compartilhado;
 
 namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
 {
@@ -23,15 +18,11 @@ namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
         public void Editar(T registro)
         {
             registros.Update(registro);
-
-            dbContext.SaveChanges();
         }
 
         public void Excluir(T registro)
         {
             registros.Remove(registro);
-
-            dbContext.SaveChanges();
         }
 
         public bool Existe(T registro)
@@ -42,8 +33,6 @@ namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
         public void Inserir(T novoRegistro)
         {
             registros.Add(novoRegistro);
-
-            dbContext.SaveChanges();
         }
 
         public T SelecionarPorId(Guid id)

@@ -2,8 +2,8 @@
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobranca;
 using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.Compartilhado.Extensoes;
 using System.Collections;
-using System.Windows.Forms;
 
 namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
 {

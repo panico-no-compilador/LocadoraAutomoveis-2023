@@ -1,5 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloTaxasServicos;
-using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.Compartilhado.Extensoes;
 
 namespace LocadoraAutomoveis.WinApp.ModuloTaxasServicos
 {

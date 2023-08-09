@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LocadoraAutomoveis.Dominio.ModuloCuponsParceiros
+﻿namespace LocadoraAutomoveis.Dominio.ModuloCuponsParceiros
 {
-    public class ValidadorCupom : AbstractValidator<Cupom>
+    public class ValidadorCupom : AbstractValidator<Cupom>, IValidadorCupom
     {
         public ValidadorCupom() 
         {
@@ -21,8 +14,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCuponsParceiros
                 .NotNull();
 
             RuleFor(x => x.DataValidade)
-            .NotEmpty();
+               .NotEmpty();
         }
-       
     }
 }

@@ -1,5 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
-using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.Compartilhado.Extensoes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

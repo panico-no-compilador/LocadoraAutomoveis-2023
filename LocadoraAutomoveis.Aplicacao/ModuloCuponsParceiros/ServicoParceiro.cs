@@ -1,10 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloCuponsParceiros;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
 {
@@ -12,28 +7,39 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
     {
         private IRepositorioParceiro repositorioParceiro;
         private IValidadorParceiro validadorParceiro;
+        private IContextoPersistencia contextoPersistencia;
 
         public ServicoParceiro(
             IRepositorioParceiro repositorioParceiro,
-            IValidadorParceiro validadorParceiro)
+            IValidadorParceiro validadorParceiro,
+            IContextoPersistencia contextoPersistencia
+            )
         {
             this.repositorioParceiro = repositorioParceiro;
             this.validadorParceiro = validadorParceiro;
+            this.contextoPersistencia = contextoPersistencia;
         }
+
         public Result Inserir(Parceiro parceiro)
         {
-            Log.Debug("Tentando inserir parceiro...{@d}", parceiro);
+            Log.Debug("Tentando inserir parceiro...{@p}", parceiro);
 
             List<string> erros = ValidarParceiro(parceiro);
 
             if (erros.Count() > 0)
+            {
+                contextoPersistencia.DesfazerAlteracoes();
+                
                 return Result.Fail(erros); //cenário 2
+            }
 
             try
             {
                 repositorioParceiro.Inserir(parceiro);
 
-                Log.Debug("parceiro {parceiroId} inserida com sucesso", parceiro.Id);
+                contextoPersistencia.GravarDados();
+                
+                Log.Debug("Parceiro {ParceiroId} inserida com sucesso", parceiro.Id);
 
                 return Result.Ok(); //cenário 1
             }
@@ -41,23 +47,30 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
             {
                 string msgErro = "Falha ao tentar inserir parceiro.";
 
-                Log.Error(exc, msgErro + "{@d}", parceiro);
+                Log.Error(exc, msgErro + "{@p}", parceiro);
 
                 return Result.Fail(msgErro); //cenário 3
             }
         }
+
         public Result Editar(Parceiro parceiro)
         {
-            Log.Debug("Tentando editar Parceiro...{@d}", parceiro);
+            Log.Debug("Tentando editar Parceiro...{@p}", parceiro);
 
             List<string> erros = ValidarParceiro(parceiro);
 
             if (erros.Count() > 0)
+            {
+                contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail(erros);
+            }
 
             try
             {
                 repositorioParceiro.Editar(parceiro);
+
+                contextoPersistencia.GravarDados();
 
                 Log.Debug("Parceiro {ParceiroId} editada com sucesso", parceiro.Id);
 
@@ -67,14 +80,15 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
             {
                 string msgErro = "Falha ao tentar editar Parceiro.";
 
-                Log.Error(exc, msgErro + "{@d}", parceiro);
+                Log.Error(exc, msgErro + "{@p}", parceiro);
 
                 return Result.Fail(msgErro);
             }
         }
+
         public Result Excluir(Parceiro parceiro)
         {
-            Log.Debug("Tentando excluir Parceiro...{@d}", parceiro);
+            Log.Debug("Tentando excluir Parceiro...{@p}", parceiro);
 
             try
             {
@@ -89,12 +103,16 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
 
                 repositorioParceiro.Excluir(parceiro);
 
+                contextoPersistencia.GravarDados();
+
                 Log.Debug("Parceiro {ParceiroId} excluída com sucesso", parceiro.Id);
 
                 return Result.Ok();
             }
             catch (SqlException ex)
             {
+                contextoPersistencia.DesfazerAlteracoes();
+
                 List<string> erros = new List<string>();
 
                 string msgErro;
@@ -111,6 +129,7 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
                 return Result.Fail(erros);
             }
         }
+
         private List<string> ValidarParceiro(Parceiro parceiro)
         {
             var resultadoValidacao = validadorParceiro.Validate(parceiro);
