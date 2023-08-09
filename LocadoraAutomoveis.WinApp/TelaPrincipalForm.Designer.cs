@@ -32,10 +32,11 @@
             cadastrosToolStripMenuItem = new ToolStripMenuItem();
             disciplinaMenuItem = new ToolStripMenuItem();
             materiasMenuItem = new ToolStripMenuItem();
-            questoesMenuItem = new ToolStripMenuItem();
+            ClientesMenuItem = new ToolStripMenuItem();
             testesMenuItem = new ToolStripMenuItem();
             configPreçosToolStripMenuItem = new ToolStripMenuItem();
             cuponsParceirosToolStripMenuItem = new ToolStripMenuItem();
+            cuponsToolStripMenuItem = new ToolStripMenuItem();
             funcionarosToolStripMenuItem = new ToolStripMenuItem();
             grupoDeAutoToolStripMenuItem = new ToolStripMenuItem();
             planosECobrançasToolStripMenuItem = new ToolStripMenuItem();
@@ -55,7 +56,6 @@
             statusStrip1 = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
             panelRegistros = new Panel();
-            cuponsToolStripMenuItem = new ToolStripMenuItem();
             menu.SuspendLayout();
             toolbox.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -73,7 +73,7 @@
             // 
             // cadastrosToolStripMenuItem
             // 
-            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { disciplinaMenuItem, materiasMenuItem, questoesMenuItem, testesMenuItem, configPreçosToolStripMenuItem, cuponsParceirosToolStripMenuItem, cuponsToolStripMenuItem, funcionarosToolStripMenuItem, grupoDeAutoToolStripMenuItem, planosECobrançasToolStripMenuItem, taxasEServiçosToolStripMenuItem, cadastrosToolStripMenuItem1 });
+            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { disciplinaMenuItem, materiasMenuItem, ClientesMenuItem, testesMenuItem, configPreçosToolStripMenuItem, cuponsParceirosToolStripMenuItem, cuponsToolStripMenuItem, funcionarosToolStripMenuItem, grupoDeAutoToolStripMenuItem, planosECobrançasToolStripMenuItem, taxasEServiçosToolStripMenuItem, cadastrosToolStripMenuItem1 });
             cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             cadastrosToolStripMenuItem.Size = new Size(71, 20);
             cadastrosToolStripMenuItem.Text = "Cadastros";
@@ -92,12 +92,13 @@
             materiasMenuItem.Size = new Size(203, 22);
             materiasMenuItem.Text = "Automóveis";
             // 
-            // questoesMenuItem
+            // ClientesMenuItem
             // 
-            questoesMenuItem.Name = "questoesMenuItem";
-            questoesMenuItem.ShortcutKeys = Keys.F3;
-            questoesMenuItem.Size = new Size(203, 22);
-            questoesMenuItem.Text = "Clientes";
+            ClientesMenuItem.Name = "ClientesMenuItem";
+            ClientesMenuItem.ShortcutKeys = Keys.F3;
+            ClientesMenuItem.Size = new Size(203, 22);
+            ClientesMenuItem.Text = "Clientes";
+            ClientesMenuItem.Click += ClientesMenuItem_Click;
             // 
             // testesMenuItem
             // 
@@ -120,6 +121,14 @@
             cuponsParceirosToolStripMenuItem.Size = new Size(203, 22);
             cuponsParceirosToolStripMenuItem.Text = "Parceiros";
             cuponsParceirosToolStripMenuItem.Click += cuponsParceirosToolStripMenuItem_Click;
+            // 
+            // cuponsToolStripMenuItem
+            // 
+            cuponsToolStripMenuItem.Name = "cuponsToolStripMenuItem";
+            cuponsToolStripMenuItem.ShortcutKeys = Keys.F7;
+            cuponsToolStripMenuItem.Size = new Size(203, 22);
+            cuponsToolStripMenuItem.Text = "Cupons";
+            cuponsToolStripMenuItem.Click += cuponsToolStripMenuItem_Click;
             // 
             // funcionarosToolStripMenuItem
             // 
@@ -276,14 +285,6 @@
             panelRegistros.Size = new Size(686, 343);
             panelRegistros.TabIndex = 3;
             // 
-            // cuponsToolStripMenuItem
-            // 
-            cuponsToolStripMenuItem.Name = "cuponsToolStripMenuItem";
-            cuponsToolStripMenuItem.ShortcutKeys = Keys.F7;
-            cuponsToolStripMenuItem.Size = new Size(203, 22);
-            cuponsToolStripMenuItem.Text = "Cupons";
-            cuponsToolStripMenuItem.Click += cuponsToolStripMenuItem_Click;
-            // 
             // TelaPrincipalForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -327,7 +328,7 @@
         private ToolStripLabel labelTipoCadastro;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem materiasMenuItem;
-        private ToolStripMenuItem questoesMenuItem;
+        private ToolStripMenuItem ClientesMenuItem;
         private ToolStripMenuItem testesMenuItem;
         private ToolStripButton btnDuplicar;
         private ToolStripButton btnDevolucao;

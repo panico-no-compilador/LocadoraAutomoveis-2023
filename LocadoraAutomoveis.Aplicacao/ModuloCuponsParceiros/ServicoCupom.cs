@@ -99,11 +99,9 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
 
                 string msgErro;
 
-                if (ex.Message.Contains("FK_TBMateria_TBcupom"))
-                    msgErro = "Esta cupom está relacionada com uma matéria e não pode ser excluída";
-                else
+                
                     msgErro = "Falha ao tentar excluir cupom";
-
+                   
                 erros.Add(msgErro);
 
                 Log.Error(ex, msgErro + " {cupomId}", cupom.Id);

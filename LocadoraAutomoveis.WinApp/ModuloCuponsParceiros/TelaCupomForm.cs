@@ -39,7 +39,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCuponsParceiros
 
         public void ConfigurarCupom(Cupom cupom)
         {
-            
+
             this.cupom = cupom;
             txtNome.Text = cupom.Nome;
             TxtValor.Text = cupom.Valor.ToString();

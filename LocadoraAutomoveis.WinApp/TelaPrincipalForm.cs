@@ -8,6 +8,10 @@ using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.Infra.Orm.ModuloCuponsParceiros;
 using LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros;
 using LocadoraAutomoveis.WinApp.ModuloCuponsParceiros;
+using LocadoraAutomoveis.Dominio.ModuloClientes;
+using LocadoraAutomoveis.Infra.Orm.ModuloClientes;
+using LocadoraAutomoveis.Aplicacao.ModuloClientes;
+using LocadoraAutomoveis.WinApp.ModuloClientes;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -68,8 +72,13 @@ namespace LocadoraAutomoveis.WinApp
 
             IRepositorioCupom repositorioCupom = new RepositorioCupomEmOrm(dbContext);
             ValidadorCupom validadorCupom = new ValidadorCupom();
-            ServicoCupom servicoCupom = new ServicoCupom(repositorioCupom,validadorCupom);
-            controladores.Add("ControladorCupom", new ControladorCupom(repositorioCupom,repositorioParceiro, servicoCupom));
+            ServicoCupom servicoCupom = new ServicoCupom(repositorioCupom, validadorCupom);
+            controladores.Add("ControladorCupom", new ControladorCupom(repositorioCupom, repositorioParceiro, servicoCupom));
+
+            IRepositorioCliente repositorioCliente = new RepositorioClienteEmOrm(dbContext);
+            ValidadorCliente validadorCliente = new ValidadorCliente();
+            ServicoCliente servicoCliente = new ServicoCliente(repositorioCliente,validadorCliente);
+            controladores.Add("ControladorCliente", new ControlardorCliente(repositorioCliente,servicoCliente));
 
         }
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
@@ -159,6 +168,11 @@ namespace LocadoraAutomoveis.WinApp
         private void cuponsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal(controladores["ControladorCupom"]);
+        }
+
+        private void ClientesMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(controladores["ControladorCliente"]);
         }
     }
 }
