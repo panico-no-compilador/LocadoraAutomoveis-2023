@@ -1,15 +1,19 @@
+using LocadoraAutomoveis.Aplicacao.ModuloAutomoveis;
 using LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Aplicacao.ModuloPlanosCobranca;
 using LocadoraAutomoveis.Aplicacao.ModuloTaxasServicos;
+using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobranca;
 using LocadoraAutomoveis.Dominio.ModuloTaxasServicos;
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
+using LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloPlanosCobranca;
 using LocadoraAutomoveis.Infra.Orm.ModuloTaxasServicos;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloCuponsParceiros;
+using LocadoraAutomoveis.WinApp.ModuloAutomoveis;
 using LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.WinApp.ModuloPlanosCobranca;
 using LocadoraAutomoveis.WinApp.ModuloTaxasServicos;
@@ -68,24 +72,29 @@ namespace LocadoraAutomoveis.WinApp
             IRepositorioTaxasServicos repositorioTaxasServicos = new RepositorioTaxasServicos(dbContext);
             IRepositorioParceiro repositorioParceiro = new RepositorioParceiroEmOrm(dbContext);
             IRepositorioCupom repositorioCupom = new RepositorioCupomEmOrm(dbContext);
+            IRepositorioAutomoveis repositorioAutomoveis = new RepositorioAutomoveisOrm(dbContext);
+
 
             ValidadorGrupoAutomoveis validadorGrupoAutomoveis = new ValidadorGrupoAutomoveis();
             ValidadorPlanoCobranca validadorPlanoCobranca = new ValidadorPlanoCobranca();
             ValidadorTaxasServicos validadorTaxasServicos = new ValidadorTaxasServicos();
             ValidadorParceiro validadorParceiro = new ValidadorParceiro();
             ValidadorCupom validadorCupom = new ValidadorCupom();
+            ValidadorAutomoveis validadorAutomoveis = new ValidadorAutomoveis();
 
             ServicoGrupoAutomoveis servicoGrupoAutomoveis = new ServicoGrupoAutomoveis(repositorioGrupoAutomoveis, validadorGrupoAutomoveis);
             ServicoPlanoCobranca servicoPlanoCobranca = new ServicoPlanoCobranca(repositorioPlanoCobranca, validadorPlanoCobranca);
             ServicoTaxasServicos servicoTaxasServicos = new ServicoTaxasServicos(repositorioTaxasServicos, validadorTaxasServicos);
             ServicoParceiro servicoParceiro = new ServicoParceiro(repositorioParceiro, validadorParceiro);
             ServicoCupom servicoCupom = new ServicoCupom(repositorioCupom, validadorCupom);
+            ServicoAutomoveis servicoAutomoveis = new ServicoAutomoveis(repositorioAutomoveis, validadorAutomoveis);
 
             controladores.Add("ControladorGrupoAutomoveis", new ControladorGrupoAutomoveis(repositorioGrupoAutomoveis, servicoGrupoAutomoveis));
             controladores.Add("ControladorPlanoCobranca", new ControladorPlanoCobranca(repositorioGrupoAutomoveis, repositorioPlanoCobranca, servicoPlanoCobranca));
             controladores.Add("ControladorTaxasServicos", new ControladorTaxasServicos(repositorioTaxasServicos, validadorTaxasServicos, servicoTaxasServicos));
             controladores.Add("ControladorParceiro", new ControladorParceiro(repositorioParceiro, servicoParceiro));
             controladores.Add("ControladorCupom", new ControladorCupom(repositorioCupom, repositorioParceiro, servicoCupom));
+            controladores.Add("ControladorAutomoveis", new ControladorAutomoveis(repositorioAutomoveis, repositorioGrupoAutomoveis, servicoAutomoveis));
         }
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
         {
@@ -104,6 +113,10 @@ namespace LocadoraAutomoveis.WinApp
         public void AtualizarRodape(string mensagem)
         {
             labelRodape.Text = mensagem;
+        }
+        private void materiasMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(controladores["ControladorAutomoveis"]);
         }
 
         private void grupoDeAutoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -180,5 +193,6 @@ namespace LocadoraAutomoveis.WinApp
         {
             controlador.Excluir();
         }
+
     }
 }

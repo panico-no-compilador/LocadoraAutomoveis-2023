@@ -1,6 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloPlanosCobranca;
-
-namespace LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis
+﻿namespace LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis
 {
     public class GrupoAutomovel : EntidadeBase<GrupoAutomovel>
     {

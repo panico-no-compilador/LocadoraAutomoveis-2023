@@ -4,6 +4,7 @@ using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraAutomoveis.Infra.Orm.Migrations
 {
     [DbContext(typeof(LocadoraAutomoveisDbContext))]
-    partial class LocadoraAutomoveisDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230809184815_migrationTaxaServicos")]
+    partial class migrationTaxaServicos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,67 +153,6 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                 {
                     b.Navigation("Cupoms");
                 });
-
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
-            {
-                b.HasOne("LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis.GrupoAutomovel", "Categoria")
-                    .WithMany()
-                    .HasForeignKey("CategoriaId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired()
-                    .HasConstraintName("FK_Automovel_GrupoAutomoveis");
-
-                b.Navigation("Categoria");
-            });
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
-            {
-                b.Property<Guid>("Id")
-                    .HasColumnType("uniqueidentifier");
-
-                b.Property<bool>("Alugado")
-                    .HasColumnType("bit");
-
-                b.Property<int>("Ano")
-                    .HasColumnType("int");
-
-                b.Property<Guid>("CategoriaId")
-                    .HasColumnType("uniqueidentifier");
-
-                b.Property<int>("Combustivel")
-                    .HasColumnType("int");
-
-                b.Property<string>("Cor")
-                    .IsRequired()
-                    .HasColumnType("varchar(30)");
-
-                b.Property<byte[]>("Imagem")
-                    .IsRequired()
-                    .HasColumnType("varbinary(MAX)");
-
-                b.Property<string>("Marca")
-                    .IsRequired()
-                    .HasColumnType("varchar(25)");
-
-                b.Property<string>("Modelo")
-                    .IsRequired()
-                    .HasColumnType("varchar(45)");
-
-                b.Property<string>("Placa")
-                    .IsRequired()
-                    .HasColumnType("varchar(8)");
-
-                b.Property<int>("QntdCombustivel")
-                    .HasColumnType("int");
-
-                b.Property<int>("Quilometragem")
-                    .HasColumnType("int");
-
-                b.HasKey("Id");
-
-                b.HasIndex("CategoriaId");
-
-                b.ToTable("TBAutomovel", (string)null);
-            });
 #pragma warning restore 612, 618
         }
     }
