@@ -41,7 +41,7 @@ namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             /* Registro dos mapeadores de forma manual
-            modelBuilder.ApplyConfiguration(new MapeadorDisciplinaOrm());
+            modelBuilder.ApplyConfiguration(new MapeadorGrupoAutomoveisOrm());
 
             modelBuilder.ApplyConfiguration(new MapeadorMateriaOrm());
 

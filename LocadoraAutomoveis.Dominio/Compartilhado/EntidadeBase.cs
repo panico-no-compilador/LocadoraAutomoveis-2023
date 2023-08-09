@@ -7,7 +7,10 @@ namespace LocadoraAutomoveis.Dominio.Compartilhado
 
 
         public Guid Id { get; set; }
-
+        public EntidadeBase()
+        {
+            Id = SequentialGuidGenerator.Instance.NewGuid(); 
+        }
         public abstract void Atualizar(T registro);
 
         public EntidadeBase()

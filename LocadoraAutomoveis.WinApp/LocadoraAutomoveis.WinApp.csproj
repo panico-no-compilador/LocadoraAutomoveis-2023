@@ -9,12 +9,9 @@
   </PropertyGroup>
 	<ItemGroup>
 		<Folder Include="ModuloFuncionarios\" />
-		<Folder Include="ModuloGrupoAutomoveis\" />
-		<Folder Include="ModuloPlanosCobranca\" />
 		<Folder Include="ModuloAutomoveis\" />
 		<Folder Include="ModuloClientes\" />
 		<Folder Include="ModuloCondutores\" />
-		<Folder Include="ModuloTaxasServicos\" />
 		<Folder Include="ModuloAluguel\" />
 		<Folder Include="ModuloConfiguracaoPrecos\" />
 	</ItemGroup>
@@ -35,8 +32,21 @@
 	  <ProjectReference Include="..\LocadoraAutomoveis.Infra.Orm\LocadoraAutomoveis.Infra.Orm.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="appsettings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 </Project>

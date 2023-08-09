@@ -42,9 +42,9 @@ namespace LocadoraAutomoveis.Infra.Orm.Compartilhado
         public void Inserir(T novoRegistro)
         {
             registros.Add(novoRegistro);
+
             dbContext.SaveChanges();
         }
-
 
         public T SelecionarPorId(Guid id)
         {

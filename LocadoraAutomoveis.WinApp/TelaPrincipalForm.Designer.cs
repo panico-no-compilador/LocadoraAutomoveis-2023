@@ -142,6 +142,7 @@
             planosECobrançasToolStripMenuItem.ShortcutKeys = Keys.F10;
             planosECobrançasToolStripMenuItem.Size = new Size(203, 22);
             planosECobrançasToolStripMenuItem.Text = "Planos e Cobranças";
+            planosECobrançasToolStripMenuItem.Click += planosECobrançasToolStripMenuItem_Click;
             // 
             // taxasEServiçosToolStripMenuItem
             // 
@@ -149,6 +150,7 @@
             taxasEServiçosToolStripMenuItem.ShortcutKeys = Keys.F11;
             taxasEServiçosToolStripMenuItem.Size = new Size(203, 22);
             taxasEServiçosToolStripMenuItem.Text = "Taxas e Serviços";
+            taxasEServiçosToolStripMenuItem.Click += taxasEServiçosToolStripMenuItem_Click;
             // 
             // cadastrosToolStripMenuItem1
             // 
