@@ -144,7 +144,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "TelaCupomForm";
-            Text = "TelaCupomForm";
+            Text = "Cadastro De Cupom";
             ResumeLayout(false);
             PerformLayout();
         }
