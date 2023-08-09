@@ -12,5 +12,13 @@ namespace LocadoraAutomoveis.Infra.Orm.ModuloPlanosCobranca
         {
             return registros.FirstOrDefault(x => x.TipoPlano == tipo);
         }
+
+        public List<PlanoCobranca> SelecionarTodos(bool incluirCategoriaGrupAuto = false)
+        {
+            if (incluirCategoriaGrupAuto)
+                return registros.Include(x => x.CategoriaGrupAuto).ToList();
+
+            return registros.ToList();
+        }
     }
 }

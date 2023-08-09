@@ -87,10 +87,10 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("PrecoDiaria")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<decimal>("PrecoKm")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("TipoPlano")
                         .HasColumnType("int");

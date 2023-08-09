@@ -14,14 +14,6 @@ namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobranca
             RuleFor(x => x.PrecoDiaria)
                 .NotEmpty()
                 .NotNull();
-
-            RuleFor(x => x.PrecoKm)
-                .NotEmpty()
-                .NotNull(); 
-
-            RuleFor(x => x.KmDisponiveis)
-                .NotEmpty()
-                .NotNull();
         }
     }
 }

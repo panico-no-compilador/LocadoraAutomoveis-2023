@@ -1,6 +1,6 @@
 ﻿namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
 {
-    partial class TabelaPlanoCobranca
+    partial class TabelaPlanoCobrancaControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -32,21 +32,22 @@
             ((System.ComponentModel.ISupportInitialize)tabelaPlanoCobranca).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // tabelaPlanoCobranca
             // 
             tabelaPlanoCobranca.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabelaPlanoCobranca.Dock = DockStyle.Fill;
             tabelaPlanoCobranca.Location = new Point(0, 0);
-            tabelaPlanoCobranca.Name = "dataGridView1";
+            tabelaPlanoCobranca.Name = "tabelaPlanoCobranca";
+            tabelaPlanoCobranca.RowTemplate.Height = 25;
             tabelaPlanoCobranca.Size = new Size(150, 150);
             tabelaPlanoCobranca.TabIndex = 0;
             // 
-            // TabelaPlanoCobranca
+            // TabelaPlanoCobrancaControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tabelaPlanoCobranca);
-            Name = "TabelaPlanoCobranca";
+            Name = "TabelaPlanoCobrancaControl";
             ((System.ComponentModel.ISupportInitialize)tabelaPlanoCobranca).EndInit();
             ResumeLayout(false);
         }

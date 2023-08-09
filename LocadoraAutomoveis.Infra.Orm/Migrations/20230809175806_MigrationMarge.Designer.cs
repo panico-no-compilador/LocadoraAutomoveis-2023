@@ -12,8 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraAutomoveis.Infra.Orm.Migrations
 {
     [DbContext(typeof(LocadoraAutomoveisDbContext))]
+<<<<<<<< HEAD:LocadoraAutomoveis.Infra.Orm/Migrations/20230809175806_MigrationMarge.Designer.cs
     [Migration("20230809175806_MigrationMarge")]
     partial class MigrationMarge
+========
+    [Migration("20230804231413_PlanosCobranca")]
+    partial class PlanosCobranca
+>>>>>>>> feature-excluir-planos-cobrancas:LocadoraAutomoveis.Infra.Orm/Migrations/20230804231413_PlanosCobranca.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,10 +95,10 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("PrecoDiaria")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<decimal>("PrecoKm")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("TipoPlano")
                         .HasColumnType("int");
