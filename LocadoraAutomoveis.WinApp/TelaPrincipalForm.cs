@@ -15,7 +15,9 @@ using LocadoraAutomoveis.WinApp.ModuloPlanosCobranca;
 using LocadoraAutomoveis.WinApp.ModuloTaxasServicos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
+using LocadoraAutomoveis.WinApp.ModuloCuponsParceiros;
+using LocadoraAutomoveis.Infra.Orm.ModuloCuponsParceiros;
+using LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -73,15 +75,15 @@ namespace LocadoraAutomoveis.WinApp
             ValidadorParceiro validadorParceiro = new ValidadorParceiro();
             ValidadorCupom validadorCupom = new ValidadorCupom();
 
-            ServicoGrupoAutomoveis servicoGrupoAutomoveis = new ServicoGrupoAutomoveis(repositorioGrupoAutomoveis, validationRules);
-            ServicoPlanoCobranca servicoPlanoCobranca = new ServicoPlanoCobranca(repositorioPlanoCobranca, validationRules1);
-            ServicoTaxasServicos servicoTaxasServicos = new ServicoTaxasServicos(repositorioTaxasServicos, validationRules2);
+            ServicoGrupoAutomoveis servicoGrupoAutomoveis = new ServicoGrupoAutomoveis(repositorioGrupoAutomoveis, validadorGrupoAutomoveis);
+            ServicoPlanoCobranca servicoPlanoCobranca = new ServicoPlanoCobranca(repositorioPlanoCobranca, validadorPlanoCobranca);
+            ServicoTaxasServicos servicoTaxasServicos = new ServicoTaxasServicos(repositorioTaxasServicos, validadorTaxasServicos);
             ServicoParceiro servicoParceiro = new ServicoParceiro(repositorioParceiro, validadorParceiro);
             ServicoCupom servicoCupom = new ServicoCupom(repositorioCupom, validadorCupom);
 
             controladores.Add("ControladorGrupoAutomoveis", new ControladorGrupoAutomoveis(repositorioGrupoAutomoveis, servicoGrupoAutomoveis));
             controladores.Add("ControladorPlanoCobranca", new ControladorPlanoCobranca(repositorioGrupoAutomoveis, repositorioPlanoCobranca, servicoPlanoCobranca));
-            controladores.Add("ControladorTaxasServicos", new ControladorTaxasServicos(repositorioTaxasServicos, validationRules2, servicoTaxasServicos));
+            controladores.Add("ControladorTaxasServicos", new ControladorTaxasServicos(repositorioTaxasServicos, validadorTaxasServicos, servicoTaxasServicos));
             controladores.Add("ControladorParceiro", new ControladorParceiro(repositorioParceiro, servicoParceiro));
             controladores.Add("ControladorCupom", new ControladorCupom(repositorioCupom, repositorioParceiro, servicoCupom));
         }
