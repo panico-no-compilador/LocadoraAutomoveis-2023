@@ -13,7 +13,6 @@
 		<Folder Include="ModuloClientes\" />
 		<Folder Include="ModuloCondutores\" />
 		<Folder Include="ModuloAluguel\" />
-		<Folder Include="ModuloConfiguracaoPrecos\" />
 		<Folder Include="ModuloCuponsParceiros\" />
 	</ItemGroup>
 	<ItemGroup>
@@ -30,6 +29,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\LocadoraAutomoveis.Aplicacao\LocadoraAutomoveis.Aplicacao.csproj" />
 	  <ProjectReference Include="..\LocadoraAutomoveis.Dominio\LocadoraAutomoveis.Dominio.csproj" />
+	  <ProjectReference Include="..\LocadoraAutomoveis.Infra.Arquivo\LocadoraAutomoveis.Infra.Arquivo.csproj" />
 	  <ProjectReference Include="..\LocadoraAutomoveis.Infra.Orm\LocadoraAutomoveis.Infra.Orm.csproj" />
 	</ItemGroup>
 	<ItemGroup>

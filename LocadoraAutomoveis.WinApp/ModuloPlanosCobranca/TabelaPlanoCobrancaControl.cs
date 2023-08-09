@@ -3,9 +3,9 @@ using LocadoraAutomoveis.WinApp.Compartilhado;
 
 namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
 {
-    public partial class TabelaPlanoCobranca : UserControl
+    public partial class TabelaPlanoCobrancaControl : UserControl
     {
-        public TabelaPlanoCobranca()
+        public TabelaPlanoCobrancaControl()
         {
             InitializeComponent();
             tabelaPlanoCobranca.ConfigurarGridSomenteLeitura();

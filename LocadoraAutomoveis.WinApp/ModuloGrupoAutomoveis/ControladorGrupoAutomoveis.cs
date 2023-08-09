@@ -1,6 +1,7 @@
 ﻿using LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.ModuloConfiguracaoPrecos;
 
 namespace LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis
 {

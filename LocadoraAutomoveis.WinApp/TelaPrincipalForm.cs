@@ -1,14 +1,19 @@
+using LocadoraAutomoveis.Aplicacao.ModuloConfiguracaoPrecos;
 using LocadoraAutomoveis.Aplicacao.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Aplicacao.ModuloPlanosCobranca;
 using LocadoraAutomoveis.Aplicacao.ModuloTaxasServicos;
+using LocadoraAutomoveis.Dominio.ModuloConfiguracaoPrecos;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobranca;
 using LocadoraAutomoveis.Dominio.ModuloTaxasServicos;
+using LocadoraAutomoveis.Infra.Arquivo.Compartilhado;
+using LocadoraAutomoveis.Infra.Arquivo.ModuloConfiguracaoPrecos;
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloPlanosCobranca;
 using LocadoraAutomoveis.Infra.Orm.ModuloTaxasServicos;
 using LocadoraAutomoveis.WinApp.Compartilhado;
+using LocadoraAutomoveis.WinApp.ModuloConfiguracaoPrecos;
 using LocadoraAutomoveis.WinApp.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.WinApp.ModuloPlanosCobranca;
 using LocadoraAutomoveis.WinApp.ModuloTaxasServicos;
@@ -19,8 +24,8 @@ namespace LocadoraAutomoveis.WinApp
 {
     public partial class TelaPrincipalForm : Form
     {
+        private static ContextoDados contextoDados;
         private Dictionary<string, ControladorBase> controladores;
-
         private ControladorBase controlador;
 
         public TelaPrincipalForm()
@@ -59,21 +64,27 @@ namespace LocadoraAutomoveis.WinApp
             optionsBuilder.UseSqlServer(connectionString);
             var dbContext = new LocadoraAutomoveisDbContext(optionsBuilder.Options);
 
+            contextoDados = new ContextoDados(carregarDados: true);
+
             IRepositorioGrupoAutomoveis repositorioGrupoAutomoveis = new RepositorioGrupoAutomoveisOrm(dbContext);
             IRepositorioPlanoCobranca repositorioPlanoCobranca = new RepositorioPlanoCobrancaOrm(dbContext);
             IRepositorioTaxasServicos repositorioTaxasServicos = new RepositorioTaxasServicos(dbContext);
+            IRepositorioConfiguracaoPrecos repositorioConfiguracaoPrecos = new RepositorioConfiguracaoPrecosArquivoJson(contextoDados);
 
             ValidadorGrupoAutomoveis validationRules = new ValidadorGrupoAutomoveis();
             ValidadorPlanoCobranca validationRules1 = new ValidadorPlanoCobranca();
             ValidadorTaxasServicos validationRules2 = new ValidadorTaxasServicos();
+            ValidadorConfiguracaoPrecos validation = new ValidadorConfiguracaoPrecos();
 
             ServicoGrupoAutomoveis servicoGrupoAutomoveis = new ServicoGrupoAutomoveis(repositorioGrupoAutomoveis, validationRules);
             ServicoPlanoCobranca servicoPlanoCobranca = new ServicoPlanoCobranca(repositorioPlanoCobranca, validationRules1);
             ServicoTaxasServicos servicoTaxasServicos = new ServicoTaxasServicos(repositorioTaxasServicos, validationRules2);
+            ServicoConfiguracaoPrecos servicoConfiguracaoPrecos = new ServicoConfiguracaoPrecos(repositorioConfiguracaoPrecos, validation);
 
             controladores.Add("ControladorGrupoAutomoveis", new ControladorGrupoAutomoveis(repositorioGrupoAutomoveis, servicoGrupoAutomoveis));
             controladores.Add("ControladorPlanoCobranca", new ControladorPlanoCobranca(repositorioGrupoAutomoveis, repositorioPlanoCobranca, servicoPlanoCobranca));
             controladores.Add("ControladorTaxasServicos", new ControladorTaxasServicos(repositorioTaxasServicos, validationRules2, servicoTaxasServicos));
+            controladores.Add("ControladorConfiguracaoPrecos", new ControladorConfiguracaoPrecos());
         }
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
         {
@@ -105,6 +116,10 @@ namespace LocadoraAutomoveis.WinApp
         private void taxasEServiçosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal(controladores["ControladorTaxasServicos"]);
+        }
+        private void configPreçosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(controladores["ControladorConfiguracaoPrecos"]);
         }
         private void ConfigurarTelaPrincipal(ControladorBase controladorBase)
         {
@@ -159,6 +174,11 @@ namespace LocadoraAutomoveis.WinApp
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             controlador.Excluir();
+        }
+
+        private void btnPrecosCombustiveis_Click(object sender, EventArgs e)
+        {
+            controlador.ConfigurarPrecoCombustiveis();
         }
     }
 }

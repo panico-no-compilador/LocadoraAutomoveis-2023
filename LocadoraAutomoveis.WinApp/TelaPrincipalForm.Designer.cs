@@ -113,6 +113,7 @@
             configPreçosToolStripMenuItem.ShortcutKeys = Keys.F5;
             configPreçosToolStripMenuItem.Size = new Size(203, 22);
             configPreçosToolStripMenuItem.Text = "Preços Combustíveis";
+            configPreçosToolStripMenuItem.Click += configPreçosToolStripMenuItem_Click;
             // 
             // cuponsParceirosToolStripMenuItem
             // 
@@ -260,6 +261,7 @@
             btnPrecosCombustiveis.Padding = new Padding(5);
             btnPrecosCombustiveis.Size = new Size(93, 29);
             btnPrecosCombustiveis.Text = "Combustíveis";
+            btnPrecosCombustiveis.Click += btnPrecosCombustiveis_Click;
             // 
             // toolStripSeparator4
             // 

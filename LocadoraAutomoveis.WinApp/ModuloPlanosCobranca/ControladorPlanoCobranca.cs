@@ -16,7 +16,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
         IRepositorioGrupoAutomoveis _repositorioGrupo;
         IRepositorioPlanoCobranca _repositorioPlano;
         ServicoPlanoCobranca servicoPlano;
-        TabelaPlanoCobranca tabelaPlanoCobranca;
+        TabelaPlanoCobrancaControl tabelaPlanoCobranca;
         public ControladorPlanoCobranca(
             IRepositorioGrupoAutomoveis repositorioGrupo,
             IRepositorioPlanoCobranca repositorioPlano,
@@ -46,7 +46,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobranca
         public override UserControl ObtemListagem()
         {
             if (tabelaPlanoCobranca == null)
-                tabelaPlanoCobranca = new TabelaPlanoCobranca();
+                tabelaPlanoCobranca = new TabelaPlanoCobrancaControl();
 
             CarregarPlanoCobranca();
 
