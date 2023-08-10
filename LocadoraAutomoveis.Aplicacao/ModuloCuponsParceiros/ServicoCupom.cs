@@ -7,12 +7,12 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloCuponsParceiros
     {
         private IRepositorioCupom repositorioCupom;
         private IContextoPersistencia contextoPersistencia;
-        private ValidadorCupom validadorCupom;
+        private IValidadorCupom validadorCupom;
 
         public ServicoCupom(
             IRepositorioCupom repositorioCupom,
             IContextoPersistencia contextoPersistencia,
-            ValidadorCupom validadorCupom
+            IValidadorCupom validadorCupom
             )
         {
             this.repositorioCupom = repositorioCupom;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LocadoraAutomoveis.Dominio.ModuloCuponsParceiros
 {
-    public interface IValidadorCupom
+    public interface IValidadorCupom : IValidador<Cupom>
     {
     }
 }

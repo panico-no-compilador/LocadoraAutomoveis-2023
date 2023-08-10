@@ -8,12 +8,12 @@ namespace LocadoraAutomoveis.Aplicacao.ModuloClientes
 
         private IRepositorioCliente repositorioCliente;
         private IContextoPersistencia contextoPersistencia;
-        private ValidadorCliente validadadorCliente;
+        private IValidadorCliente validadadorCliente;
 
         public ServicoCliente(
             IRepositorioCliente repositorioCliente,
             IContextoPersistencia contextoPersistencia,
-            ValidadorCliente validadadorCliente
+            IValidadorCliente validadadorCliente
             )
         {
             this.repositorioCliente = repositorioCliente;
