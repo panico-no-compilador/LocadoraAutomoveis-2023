@@ -3,7 +3,10 @@ using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Compartilhado.Extensoes;
+using Microsoft.IdentityModel.Tokens;
 using System.Collections;
+using System.IO;
+using System.Windows.Forms;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAutomoveis
 {
@@ -21,8 +24,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomoveis
         }
         public Automovel ObterAutomovel()
         {
-            automovel.Imagem = pictureBox1.Image.ToByte();
-
+            automovel.Imagem = ConverterImagemParaArrayBytes(pictureBox1.Image);
             automovel.Placa = txtPlaca.Text;
             automovel.Ano = Convert.ToInt32(txtAno.Text);
             automovel.Categoria = (GrupoAutomovel)cmbGrupAutomoveis.SelectedItem;
@@ -37,8 +39,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomoveis
         public void ConfigurarAutomovel(Automovel automovel)
         {
             this.automovel = automovel;
-
-            pictureBox1.Image = automovel.Imagem.ToImage();
+            if (automovel.Imagem != null)
+                pictureBox1.Image = ConverterArrayBytesParaImagem(automovel.Imagem);
             txtPlaca.Text = automovel.Placa;
             txtAno.Text = automovel.Ano.ToString();
             cmbGrupAutomoveis.SelectedItem = automovel.Categoria;
@@ -75,14 +77,18 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomoveis
         }
         private void btnBuscarFoto_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "Arquivo JPEG|*.jpg";
-            if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
+            if (openFile.ShowDialog(this) == DialogResult.OK)
             {
-                string diretorio = openFileDialog1.FileName;
-                //string diretorio = folderBrowserDialog1.SelectedPath;
-
-                //pictureBox1.Image = Image.FromFile(diretorio);
-                pictureBox1.Image.Save(diretorio, System.Drawing.Imaging.ImageFormat.Jpeg);
+                string diretorio = openFile.FileName;
+                try
+                {
+                    pictureBox1.Image = Image.FromFile(diretorio);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Foto somente em formato PNG", "Cadastro de Imagem",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -98,6 +104,25 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomoveis
                 TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 
                 DialogResult = DialogResult.None;
+            }
+        }
+        public byte[] ConverterImagemParaArrayBytes(Image imagem)
+        {
+            using (var imagemStream = new MemoryStream())
+            {
+                imagem.Save(imagemStream, System.Drawing.Imaging.ImageFormat.Png);
+
+                return imagemStream.ToArray();
+            }
+        }
+
+        public Image ConverterArrayBytesParaImagem(byte[] imagemBytes)
+        {
+            using (var imagemStream = new MemoryStream(imagemBytes))
+            {
+                Image imagem = Image.FromStream(imagemStream);
+
+                return imagem;
             }
         }
     }

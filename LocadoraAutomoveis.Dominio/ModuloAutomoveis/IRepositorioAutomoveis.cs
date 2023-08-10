@@ -1,4 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+﻿using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 
 namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
 {
@@ -6,6 +6,6 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
     {
         Automovel SelecionarPorPlaca(string nome);
         List<Automovel> SelecionarTodos(bool incluirCategoriaGrupAuto = false);
-
+        List<Automovel>? SelecionarPorGrupo(GrupoAutomovel grupo);
     }
 }

@@ -50,7 +50,7 @@
             txtAno = new TextBox();
             label9 = new Label();
             txtPlaca = new TextBox();
-            openFileDialog1 = new OpenFileDialog();
+            openFile = new OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -176,8 +176,10 @@
             // pictureBox1
             // 
             pictureBox1.Location = new Point(152, 12);
+            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(72, 67);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 17;
             pictureBox1.TabStop = false;
             // 
@@ -234,7 +236,7 @@
             // 
             // openFileDialog1
             // 
-            openFileDialog1.FileName = "openFileDialog1";
+            openFile.FileName = "openFileDialog1";
             // 
             // TelaAutomoveisForm
             // 
@@ -292,6 +294,6 @@
         private TextBox txtAno;
         private Label label9;
         private TextBox txtPlaca;
-        private OpenFileDialog openFileDialog1;
+        private OpenFileDialog openFile;
     }
 }

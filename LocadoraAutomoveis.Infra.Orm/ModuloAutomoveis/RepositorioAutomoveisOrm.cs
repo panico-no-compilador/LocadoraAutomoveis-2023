@@ -1,4 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 
 namespace LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis
 {
@@ -18,6 +19,10 @@ namespace LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis
                 return registros.Include(x => x.Categoria).ToList();
 
             return registros.ToList();
+        }
+        public List<Automovel>? SelecionarPorGrupo(GrupoAutomovel grupoDeAutomoveis)
+        {
+            return registros.Where(x => x.Categoria == grupoDeAutomoveis).ToList();
         }
     }
 }

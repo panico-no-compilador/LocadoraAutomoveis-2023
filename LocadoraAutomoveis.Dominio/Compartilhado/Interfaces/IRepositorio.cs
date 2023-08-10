@@ -9,6 +9,5 @@
 
         List<T> SelecionarTodos();
         T SelecionarPorId(Guid id);
-
     }
 }
