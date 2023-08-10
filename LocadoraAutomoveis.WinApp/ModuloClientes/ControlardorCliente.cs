@@ -82,6 +82,26 @@ namespace LocadoraAutomoveis.WinApp.ModuloClientes
                 CarregarClientes();
             }
         }
+        public override void Editar()
+        {
+            Guid id = tabelaCliente.ObtemIdSelecionado();
+            Cliente clienteSelecionado = repositorioCliente.SelecionarPorId(id);
+
+            if (clienteSelecionado == null)
+            {
+                MessageBox.Show("Seleciona um Cliente Primeiro",
+                    "Edição de Clientes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            TelaClienteForm tela = new TelaClienteForm();
+            tela.onGravarRegistro += servicoCliente.Editar;
+            tela.ConfigurarCliente(clienteSelecionado);
+            DialogResult resultado = tela.ShowDialog();
+            if (resultado == DialogResult.OK)
+            {
+                CarregarClientes();
+            }
+        }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
         {
